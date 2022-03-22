@@ -1,1 +1,1 @@
-# OpenCV-project
+# OpenCV-project: Astéroïdes
