@@ -1,9 +1,10 @@
 <img alt="coding" width="300" src="https://upload.wikimedia.org/wikipedia/fr/6/6a/Logo_T%C3%A9l%C3%A9com_Saint_%C3%89tienne.svg">
+
 # Projet OpenCV : Astéroïdes
 
 ## Travail demandé:
 Le travail demandé concerne la conception et le développement d’un jeu présentant **une scène 3D** dans laquelle on se déplace à partir de mouvements des mains.
-<img align="right" alt="coding" width="400" src="https://github.com/SABIR-ILYASS/Asteroides/blob/main/sc%C3%A8ne3d.jpg">
+<img alt="coding" width="400" src="https://github.com/SABIR-ILYASS/Asteroides/blob/main/sc%C3%A8ne3d.jpg">
 
 ## Contributeurs:
 * SABIR Ilyass
