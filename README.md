@@ -4,6 +4,7 @@
 
 ## Travail demandé:
 Le travail demandé concerne la conception et le développement d’un jeu présentant **une scène 3D** dans laquelle on se déplace à partir de mouvements des mains.
+
 <img alt="coding" width="400" src="https://github.com/SABIR-ILYASS/Asteroides/blob/main/sc%C3%A8ne3d.jpg">
 
 ## Contributeurs:
