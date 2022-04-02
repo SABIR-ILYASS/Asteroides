@@ -1,6 +1,5 @@
 #include "Sound.h"
 #include<QString>
-#include <
 
 Sound::Sound()
 {
