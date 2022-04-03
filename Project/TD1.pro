@@ -19,6 +19,10 @@ TARGET 	  = TD1
 
 # fichiers sources/headers
 SOURCES	+= main.cpp myglwidget.cpp \
-    sound.cpp
+    asteroide.cpp \
+    sound.cpp \
+    vaisseau.cpp
 HEADERS += myglwidget.h \
-    Sound.h
+    Sound.h \
+    asteroide.h \
+    vaisseau.h
