@@ -1,4 +1,4 @@
-<img alt="coding" width="300" src="https://upload.wikimedia.org/wikipedia/fr/6/6a/Logo_T%C3%A9l%C3%A9com_Saint_%C3%89tienne.svg">
+<img alt="coding" width="500" src="https://github.com/SABIR-ILYASS/Asteroides/blob/main/TSELogo.jpg">
 
 # Projet OpenCV : Astéroïdes
 
