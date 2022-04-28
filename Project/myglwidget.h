@@ -17,8 +17,6 @@ public:
     // Constructeur
     MyGLWidget(QWidget * parent = nullptr);
 
-    // gérer les interactions clavier
-    void keyPressEvent(QKeyEvent * keyEvent);
 
 protected:
     // la forme qu'on veut

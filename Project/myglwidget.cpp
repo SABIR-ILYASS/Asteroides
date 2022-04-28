@@ -47,47 +47,24 @@ void MyGLWidget::paintGL()
     // couleur à utiliser pour dessiner les objets
     glColor3ub(colortR_, colortB_, colortB_);
 
-    // Reinitialisation de la matrice courante
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(-5.0f, 5.0f, -5.0f, 5.0f, 2.0f, 10.0f);
-
     // Affichage des primitives
     // ...
-    glClearColor(0.f, 0.f, 0.7f, 1.f);
-    // Reinitialisation du tampon de couleur
-    glClear(GL_COLOR_BUFFER_BIT |GL_COLOR_BUFFER_BIT);
+    /*
+
+    glMatrixMode(GL_MODELVIEW);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glLoadIdentity();
+    //gluPerspective(70.f, 1, 0.1f, 12.f);
+
+    new StationOrbitaleLogoTSE(10., 20., 20.);
+    */
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(70.f, 1, 0.1f, 12.f);
-    glMatrixMode(GL_MODELVIEW);
+    glOrtho(-100.0, 100.0, -50.0, 20.0, 0.0, 20.0);
+    new StationOrbitaleLogoTSE(0., 0., 0.);
 
-    //new StationOrbitaleLogoTSE(10., 20., 20.);
-    new Asteroide(5, 2, 1);
-
-}
-
-void MyGLWidget::keyPressEvent(QKeyEvent * keyEvent){
-    QString text = keyEvent->text();
-    if (text == "c"){
-        colorfR_ = rand() % 255;
-        colorfG_ = rand() % 255;
-        colorfB_ = rand() % 255;
-        update();
-    }else if (text == "o"){
-        colortR_ = rand() % 255;
-        colortG_ = rand() % 255;
-        colortB_ = rand() % 255;
-        update();
-
-    } else if (text == "r"){
-        angleRotat_ = -90 + rand() % 180;
-        update();
-    } else if (text == " "){
-        count_ +=1;
-        count_ %= 3;
-        update();
-    }
+    //new Asteroide(5, 2, 1);
 
 }
+
 

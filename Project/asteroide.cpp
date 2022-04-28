@@ -4,8 +4,8 @@
 #include <QApplication>
 #include <QDebug>
 
-float const Asteroide::MAX_RAYON_ = 2.f;
-float const Asteroide::MIN_RAYON_ = 1.f;
+float const Asteroide::MAX_RAYON_ = 1.f;
+float const Asteroide::MIN_RAYON_ = 0.f;
 
 
 Asteroide::Asteroide(float posX, float posY, float posZ)
@@ -15,10 +15,11 @@ Asteroide::Asteroide(float posX, float posY, float posZ)
     this->positionZ_ = posZ;
 
     QRandomGenerator gen = QRandomGenerator();
-    double rayon = gen.bounded(MAX_RAYON_- MIN_RAYON_) + MIN_RAYON_;
+    double rayon = gen.generateDouble() * (MAX_RAYON_- MIN_RAYON_) + MIN_RAYON_;
+    QString h = QString::number(rayon);
+    qDebug(h.toLatin1());
     this->rayon_ = rayon;
 
-    // glTranslated(posX, posY, posZ);
     GLUquadric * quadrique = gluNewQuadric();
     gluQuadricDrawStyle(quadrique, GLU_LINE);
     gluSphere(quadrique, this->rayon_, 20, 20);
