@@ -1,19 +1,28 @@
 #include "asteroide.h"
 #include <QRandomGenerator>
+#include <GL/glu.h>
+#include <QApplication>
+#include <QDebug>
 
-double const Asteroide::MAX_RAYON_ = 5.;
-double const Asteroide::MIN_RAYON_ = 20.;
+float const Asteroide::MAX_RAYON_ = 2.f;
+float const Asteroide::MIN_RAYON_ = 1.f;
 
 
-Asteroide::Asteroide(int posX, int posY, int posZ)
+Asteroide::Asteroide(float posX, float posY, float posZ)
 {
     this->positionX_ = posX;
     this->positionY_ = posY;
     this->positionZ_ = posZ;
 
     QRandomGenerator gen = QRandomGenerator();
-    int rayon = gen.bounded(MAX_RAYON_- MIN_RAYON_) + MIN_RAYON_;
+    double rayon = gen.bounded(MAX_RAYON_- MIN_RAYON_) + MIN_RAYON_;
     this->rayon_ = rayon;
+
+    // glTranslated(posX, posY, posZ);
+    GLUquadric * quadrique = gluNewQuadric();
+    gluQuadricDrawStyle(quadrique, GLU_LINE);
+    gluSphere(quadrique, this->rayon_, 20, 20);
+    gluDeleteQuadric(quadrique);
 }
 
 Asteroide::~Asteroide()
@@ -25,27 +34,27 @@ Asteroide::~Asteroide()
 void Asteroide::setRayon()
 {
     QRandomGenerator gen = QRandomGenerator();
-    int rayon = gen.bounded(MAX_RAYON_- MIN_RAYON_) + MIN_RAYON_;
+    float rayon = gen.bounded(MAX_RAYON_- MIN_RAYON_) + MIN_RAYON_;
     this->rayon_ = rayon;
 }
 
-void Asteroide::setPosition(int posX, int posY, int posZ)
+void Asteroide::setPosition(float posX, float posY, float posZ)
 {
     this->positionX_ = posX;
     this->positionY_ = posY;
     this->positionZ_ = posZ;
 }
 
-int * Asteroide::getPosition()
+float * Asteroide::getPosition()
 {
-    int * position = new int[3];
+    float * position = new float[3];
     position[0] = this->positionX_;
     position[1] = this->positionY_;
     position[2] = this->positionZ_;
     return position;
 }
 
-int Asteroide::getRayon()
+float Asteroide::getRayon()
 {
     return this->rayon_;
 }

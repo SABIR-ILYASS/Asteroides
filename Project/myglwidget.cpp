@@ -1,4 +1,8 @@
 #include "myglwidget.h"
+#include "stationorbitalelogotse.h"
+#include "asteroide.h"
+
+#include "asteroide.h"
 #include <GL/glu.h>
 #include <QApplication>
 
@@ -20,6 +24,7 @@ void MyGLWidget::initializeGL()
     // Reglage de la couleur de fond
     // ...
     //this->paintGL();
+
 
 }
 
@@ -49,32 +54,16 @@ void MyGLWidget::paintGL()
 
     // Affichage des primitives
     // ...
-    glMatrixMode(GL_MODELVIEW);
+    glClearColor(0.f, 0.f, 0.7f, 1.f);
+    // Reinitialisation du tampon de couleur
+    glClear(GL_COLOR_BUFFER_BIT |GL_COLOR_BUFFER_BIT);
+    glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glRotatef(angleRotat_,0.f,0.f,1.f);
-    if (count_ == 0){
-        glBegin(GL_TRIANGLES);
-        glVertex3f(-0.5f,0.f,-4.f);
-        glVertex3f(0.5f,0.f,-4.f);
-        glVertex3f(0.f,0.86f,-4.f);
-        glEnd();
-    } else if (count_ == 1){
-        glBegin(GL_QUADS);
-        glVertex3f(-0.5f,0.f,-4.f);
-        glVertex3f(0.5f,0.f,-4.f);
-        glVertex3f(0.5f,1.f,-4.f);
-        glVertex3f(-0.5f,1.f,-4.f);
-        glEnd();
-    } else{
-        glBegin(GL_POLYGON);
-        glVertex3f(-0.5f,0.f,-4.f);
-        glVertex3f(0.f,-0.25f,-4.f);
-        glVertex3f(0.5f,0.f,-4.f);
-        glVertex3f(0.5f,0.55f,-4.f);
-        glVertex3f(0.f,0.8f,-4.f);
-        glVertex3f(-0.5f,0.55f,-4.f);
-        glEnd();
-    }
+    gluPerspective(70.f, 1, 0.1f, 12.f);
+    glMatrixMode(GL_MODELVIEW);
+
+    //new StationOrbitaleLogoTSE(10., 20., 20.);
+    new Asteroide(5, 2, 1);
 
 }
 

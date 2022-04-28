@@ -11,9 +11,12 @@ protected:
     int positionZ_;
 
 public:
-    StationOrbitaleLogoTSE(int posX, int posY, int posZ);
+    StationOrbitaleLogoTSE(float posX, float posY, float posZ);
     ~StationOrbitaleLogoTSE();
-
+    float gitPositionX() {return positionX_;}
+    float gitPositionY() {return positionZ_;}
+    float gitPositionZ() {return positionZ_;}
+    void setPositions(float x, float y, float z);
 };
 
 #endif // STATIONORBITALELOGOTSE_H

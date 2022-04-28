@@ -9,20 +9,20 @@
 class Asteroide
 {
 public:
-    Asteroide(int posX, int posY, int posZ);
+    Asteroide(float posX, float posY, float posZ);
     ~Asteroide();
-    int getRayon();
+    float getRayon();
     void setRayon();
-    int * getPosition();
-    void setPosition(int posX, int posY, int posZ);
+    float * getPosition();
+    void setPosition(float posX, float posY, float posZ);
 
 protected:
-    int rayon_;
-    int positionX_;
-    int positionY_;
-    int positionZ_;
-    static const double MIN_RAYON_;
-    static const double MAX_RAYON_;
+    float rayon_;
+    float positionX_;
+    float positionY_;
+    float positionZ_;
+    static const float MIN_RAYON_;
+    static const float MAX_RAYON_;
 
 };
 
