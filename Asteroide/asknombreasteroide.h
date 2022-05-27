@@ -17,6 +17,7 @@ class AskNombreAsteroide : public QDialog
 public:
     explicit AskNombreAsteroide(QWidget *parent = nullptr);
     ~AskNombreAsteroide();
+    int nombreOfAsteroide_;
 
 public slots:
     void play();

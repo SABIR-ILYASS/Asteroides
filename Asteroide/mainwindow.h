@@ -25,6 +25,7 @@ public:
     void cameraWindow();
     void gestionAffichageVie(int n);
     void stopTime();
+    int nombreOfAsteroide_;
 
 public slots:
     void pause();

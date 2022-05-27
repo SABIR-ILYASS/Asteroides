@@ -12,6 +12,12 @@ GameWidget::GameWidget(QWidget * parent) : QOpenGLWidget(parent)
 
     m_AnimationTimer.setInterval(200);
     m_AnimationTimer.start();
+
+    // listAsteroide_ = new ListAsteroide(nombreOfAst_);
+    listAsteroide_ = new ListAsteroide(20);
+    listAsteroide_->creat();
+    vaisseau_ = new Vaisseau();
+
 }
 
 void GameWidget::initializeGL()
@@ -43,8 +49,7 @@ void GameWidget::initializeGL()
      glLightfv(GL_LIGHT0, GL_SPECULAR, color_speculaire);
 
 
-    vaisseau_ = new Vaisseau();
-    asteroide_ = new Asteroide();
+    // a = new Asteroide();
 
 }
 
@@ -61,6 +66,7 @@ void GameWidget::paintGL()
         glPushMatrix();
         vaisseau_->Display();
         ground_->Display();
-        asteroide_->Display();
+        // a->Display();
+        listAsteroide_->Display();
         glPopMatrix();
 }

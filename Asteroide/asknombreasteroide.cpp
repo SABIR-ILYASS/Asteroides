@@ -64,6 +64,7 @@ int AskNombreAsteroide::nmbOfAsteroide()
 {
     QString number = nbrAst_->text();
     int n = number.toInt();
+    nombreOfAsteroide_ = n;
     qDebug()<<n;
     return n;
 }

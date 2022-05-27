@@ -10,20 +10,29 @@ Asteroide::Asteroide()
     posX_ = 0;
     posY_ = 0;
     posZ_ = 0;
+    idOfAsteroide_ = false;
+
 }
 
 
-Asteroide::Asteroide(double posX,double posY,double posZ)
+Asteroide::Asteroide(double posX,double posY,double posZ, bool b)
 {
     posX_ = posX;
     posY_ = posY;
     posZ_ = posZ;
+    idOfAsteroide_ = b;
 }
 
 void Asteroide::Display() const
 {
+    QString pathImage;
     glEnable(GL_TEXTURE_2D);
-    QImage astrImage  = QImage(":/images/textures/asteroide.jpg");
+    if(! idOfAsteroide_)
+        pathImage = ":/images/textures/asteroide.jpg";
+    else{
+        pathImage = ":/images/textures/positiveAsteroide.jpg";
+    }
+    QImage astrImage  = QImage(pathImage);
     QImage textureAstr = astrImage.convertToFormat(QImage ::Format_RGBA8888);
 
     GLuint textures;
@@ -43,7 +52,6 @@ void Asteroide::Display() const
    gluSphere(quadrique2,2,10,10);
    glNormal3f(0.0,0.0,1.0);
    glPopMatrix();
-
 }
 
 void Asteroide::setPosition(double x,double y,double z)

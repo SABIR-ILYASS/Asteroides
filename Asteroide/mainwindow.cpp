@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QTimer>
 #include <QTime>
+
 #include <QElapsedTimer>
 
 #include <QVector>
@@ -80,6 +81,7 @@ MainWindow::MainWindow(QWidget *parent)
     timer_->setGeometry(w * 0.47, h * 0.855,  w * 0.6, h * 0.1);
 
     AskNombreAsteroide asknombreasteroide(this);
+    this->nombreOfAsteroide_ = asknombreasteroide.nombreOfAsteroide_;
     asknombreasteroide.exec();
 
     // connect slots:
@@ -107,6 +109,8 @@ void MainWindow::gameWindow()
 
 
     gameWidget_ = new GameWidget(this);
+    gameWidget_->nombreOfAst_ = this->nombreOfAsteroide_;
+
     gameWidget_->setGeometry(w * 0.005, h * 0.01, w * 0.49, h * 0.8);
     gameWidget_->setStyleSheet("border-radius:25%");
 

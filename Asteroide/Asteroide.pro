@@ -33,6 +33,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     pausewindow.cpp \
+    stationorbitalelogotse.cpp \
     vaisseau.cpp
 
 HEADERS += \
@@ -44,6 +45,7 @@ HEADERS += \
     listasteroide.h \
     mainwindow.h \
     pausewindow.h \
+    stationorbitalelogotse.h \
     vaisseau.h
 
 FORMS += \

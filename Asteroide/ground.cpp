@@ -35,9 +35,9 @@ void Ground::Display() const
     glBindTexture(GL_TEXTURE_2D, textures);
     glBegin(GL_QUADS);
     //glColor3ub(60, 169, 113);
-    glTexCoord2f(0,0);glVertex3f(-10, -3.0,-120.0);
-    glTexCoord2f(1,0);glVertex3f(10, -3.0, -120.0);
-    glTexCoord2f(1,1);glVertex3f(75, -3.0, 20.0);
-    glTexCoord2f(0,1);glVertex3f(-75, -3.0, 20.0);
+    glTexCoord2f(0,0);glVertex3f(-130, -3.0,-200.0);
+    glTexCoord2f(1,0);glVertex3f(130, -3.0, -200.0);
+    glTexCoord2f(1,1);glVertex3f(130, -3.0, 10.0);
+    glTexCoord2f(0,1);glVertex3f(-130, -3.0, 10.0);
     glEnd();
 }
