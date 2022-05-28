@@ -17,7 +17,10 @@ GameWidget::GameWidget(QWidget * parent) : QOpenGLWidget(parent)
     // listAsteroide_ = new ListAsteroide(nombreOfAst_);
     listAsteroide_ = new ListAsteroide(20);
     listAsteroide_->creat();
+
     vaisseau_ = new Vaisseau();
+
+    stationOrbitale_ = new StationorbitaleLogoTSE();
 
 }
 
@@ -65,9 +68,13 @@ void GameWidget::paintGL()
         glLoadIdentity();
         gluLookAt(0, 11., 10., 0., 0., 0., 0., 1., 0.);
         glPushMatrix();
-        vaisseau_->Display();
+        // vaisseau_->Display();
+
+        stationOrbitale_->Display();
+
         ground_->Display();
         listAsteroide_->avancerZ();
+        stationOrbitale_->avancerZ(1);
         // listAsteroide_->avancerX();
         listAsteroide_->Display();
         glPopMatrix();

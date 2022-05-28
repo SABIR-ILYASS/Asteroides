@@ -12,7 +12,8 @@
         <file>textures/asteroide.jpg</file>
         <file>textures/positiveAsteroide.jpg</file>
         <file>textures/verre.jpg</file>
-        <file>textures/tse.png</file>
+        <file>textures/tse.jpg</file>
+        <file>textures/verre2.jpg</file>
 
         <file>detection.xml</file>
 

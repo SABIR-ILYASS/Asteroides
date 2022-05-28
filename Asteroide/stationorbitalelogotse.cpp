@@ -1,7 +1,12 @@
 #include "stationorbitalelogotse.h"
 
+#include <random>
+
 StationorbitaleLogoTSE::StationorbitaleLogoTSE()
 {
+    posX_ = rand() % (this->MAX_POSITION_X - this->MIN_POSITION_X) + this->MIN_POSITION_X;
+    posY_ = 0;
+    posZ_ = -210;
 
 }
 
@@ -9,16 +14,16 @@ void StationorbitaleLogoTSE::Display() const
 {
     glEnable(GL_TEXTURE_2D);
     // Initialisation des paramètres
-    QImage tex1  = QImage(":/images/textures/verre.jpg");
+    QImage tex1  = QImage(":/images/textures/tse.jpg");
     QImage texture1 = tex1.convertToFormat(QImage ::Format_RGBA8888);
 
-    QImage tex2  = QImage(":/images/textures/tse.png");
+    QImage tex2  = QImage(":/images/textures/verre.jpg");
     QImage texture2 = tex2.convertToFormat(QImage ::Format_RGBA8888);
 
-    //QImage tex3  = QImage(":/images/textures/textureVaisse3.jpg");
-    //QImage texture3 = tex3.convertToFormat(QImage ::Format_RGBA8888);
+    QImage tex3  = QImage(":/images/textures/verre2.jpg");
+    QImage texture3 = tex3.convertToFormat(QImage ::Format_RGBA8888);
 
-    GLuint *textures = new GLuint[2];
+    GLuint *textures = new GLuint[3];
     glGenTextures(5,textures);
 
     // on definit la texture courante
@@ -34,77 +39,350 @@ void StationorbitaleLogoTSE::Display() const
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 
-    // glBindTexture(GL_TEXTURE_2D, textures[2]);
+    glBindTexture(GL_TEXTURE_2D, textures[2]);
     // on definit les caracteristique de la textures courantes
-    // glTexImage2D(GL_TEXTURE_2D,0,4, texture3.width(),texture3.height(),0,GL_RGBA,GL_UNSIGNED_BYTE,texture3.bits());
-    // glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-    // glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D,0,4, texture3.width(),texture3.height(),0,GL_RGBA,GL_UNSIGNED_BYTE,texture3.bits());
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 
 
     // ajouter moteur vaisseau
-    glBindTexture(GL_TEXTURE_2D, textures[1]);
-    GLUquadric* quadrique = gluNewQuadric();
-    gluQuadricDrawStyle(quadrique,GLU_FILL);
-    gluQuadricTexture(quadrique,GLU_TRUE);
+
     glPushMatrix();
-    //glColor3ub(100, 100, 0);
-    glTranslated(-0.0,0.0 ,7.0);
-    gluCylinder(quadrique,0.5,1,1.1,10,10);
-    glNormal3f(0.0,0.0,1.0);
-    glPopMatrix();
-    glBindTexture(GL_TEXTURE_2D, textures[3]);
-    GLUquadric* quadrique2 = gluNewQuadric();
-    gluQuadricDrawStyle(quadrique2,GLU_FILL);
-    gluQuadricTexture(quadrique2,GLU_TRUE);
-    glPushMatrix();
-    //glColor3ub(100, 100, 0);
-    glTranslated(-0.0,0.0 ,8.2);
-    gluSphere(quadrique2,0.5,10,10);
-    glNormal3f(0.0,0.0,1.0);
-    glPopMatrix();
+
+    glTranslated(posX_ ,posY_ ,posZ_);
+
     glBindTexture(GL_TEXTURE_2D, textures[0]);
     //ajouter_eclairage();
 
     glBegin(GL_QUADS);
 
     glNormal3f(0.0,0.0,-1.0);
-    glTexCoord2d(1,0),glVertex3f(-1.f, -1.f, 3.f);
-    glTexCoord2d(1,1),glVertex3f(1.f, -1.f, 3.f);
-    glTexCoord2d(0,1),glVertex3f(1.f, 1.f, 3.f);
-    glTexCoord2d(0,0),glVertex3f(-1.f, 1.f, 3.f);
+    glTexCoord2d(1,0),glVertex3f(-1.f, -0.5f, 3.f);
+    glTexCoord2d(1,1),glVertex3f(1.f, -0.5f, 3.f);
+    glTexCoord2d(0,1),glVertex3f(1.f, 0.5f, 3.f);
+    glTexCoord2d(0,0),glVertex3f(-1.f, 0.5f, 3.f);
+
+
+    //glColor3ub(255, 0, 0);
+    glNormal3f(0.0,0.0,1.0);
+    glTexCoord2d(1,0),glVertex3f(-1.f, -0.5f, 5.f);
+    glTexCoord2d(1,1),glVertex3f(1.f, -0.5f, 5.f);
+    glTexCoord2d(0,1),glVertex3f(1.f, 0.5f, 5.f);
+    glTexCoord2d(0,0),glVertex3f(-1.f, 0.5f, 5.f);
+
+    glNormal3f(0.0,1.0,0.0);
+    glTexCoord2d(0,0),glVertex3f(-1.f, 0.5f, 5.f);
+    glTexCoord2d(0,1),glVertex3f(1.f, 0.5f, 5.f);
+    glTexCoord2d(1,1),glVertex3f(1.f, 0.5f, 3.f);
+    glTexCoord2d(1,0),glVertex3f(-1.f, 0.5f, 3.f);
+
+    glNormal3f(0.0,1.0,0.0);
+    glTexCoord2d(1,0),glVertex3f(-1.f, -0.5f, 5.f);
+    glTexCoord2d(1,1),glVertex3f(1.f, -0.5f, 5.f);
+    glTexCoord2d(1,1),glVertex3f(1.f, -0.5f, 3.f);
+    glTexCoord2d(0,0),glVertex3f(-1.f, -0.5f, 3.f);
+
+    glNormal3f(1.0,0.0,0.0);
+    glVertex3f(1.f, 0.5f, 5.f);
+    glVertex3f(1.f, -0.5f, 5.f);
+    glVertex3f(1.f, -0.5f, 3.f);
+    glVertex3f(1.f, 0.5f, 3.f);
+
+    glNormal3f(1.0,0.0,0.0);
+    glVertex3f(-1.f, 0.5f, 5.f);
+    glVertex3f(-1.f, -0.5f, 5.f);
+    glVertex3f(-1.f, -0.5f, 3.f);
+    glVertex3f(-1.f, 0.5f, 3.f);
+    glEnd();
+
+
+    // 1
+
+    glBindTexture(GL_TEXTURE_2D, textures[1]);
+
+    glBegin(GL_QUADS);
+
+    glColor3ub(255, 0, 0);
+
+    glNormal3f(0.0,0.0,-1.0);
+    glTexCoord2d(1,0),glVertex3f(-3.f, -0.5f, 3.25f);
+    glTexCoord2d(1,1),glVertex3f(-1.f, -0.5f, 3.25f);
+    glTexCoord2d(0,1),glVertex3f(-1.f, 0.5f, 3.25f);
+    glTexCoord2d(0,0),glVertex3f(-3.f, 0.5f, 3.25f);
 
 
     //glColor3ub(100, 0, 0);
     glNormal3f(0.0,0.0,1.0);
-    glTexCoord2d(1,0),glVertex3f(-1.f, -1.f, 7.f);
-    glTexCoord2d(1,1),glVertex3f(1.f, -1.f, 7.f);
-    glTexCoord2d(0,1),glVertex3f(1.f, 1.f, 7.f);
-    glTexCoord2d(0,0),glVertex3f(-1.f, 1.f, 7.f);
+    glTexCoord2d(1,0),glVertex3f(-3.f, -0.5f, 3.5f);
+    glTexCoord2d(1,1),glVertex3f(-1.f, -0.5f, 3.5f);
+    glTexCoord2d(0,1),glVertex3f(-1.f, 0.5f, 3.5f);
+    glTexCoord2d(0,0),glVertex3f(-3.f, 0.5f, 3.5f);
 
     glNormal3f(0.0,1.0,0.0);
-    glTexCoord2d(0,0),glVertex3f(-1.f, 1.f, 7.f);
-    glTexCoord2d(0,1),glVertex3f(1.f, 1.f, 7.f);
-    glTexCoord2d(1,1),glVertex3f(1.f, 1.f, 3.f);
-    glTexCoord2d(1,0),glVertex3f(-1.f, 1.f, 3.f);
+    glTexCoord2d(0,0),glVertex3f(-3.f, 0.5f, 3.5f);
+    glTexCoord2d(0,1),glVertex3f(-1.f, 0.5f, 3.5f);
+    glTexCoord2d(1,1),glVertex3f(-1.f, 0.5f, 3.25f);
+    glTexCoord2d(1,0),glVertex3f(-3.f, 0.5f, 3.25f);
 
     glNormal3f(0.0,1.0,0.0);
-    glTexCoord2d(1,0),glVertex3f(-1.f, -1.f, 7.f);
-    glTexCoord2d(1,1),glVertex3f(1.f, -1.f, 7.f);
-    glTexCoord2d(1,1),glVertex3f(1.f, -1.f, 3.f);
-    glTexCoord2d(0,0),glVertex3f(-1.f, -1.f, 3.f);
+    glTexCoord2d(1,0),glVertex3f(-3.f, -0.5f, 3.5f);
+    glTexCoord2d(1,1),glVertex3f(-1.f, -0.5f, 3.5f);
+    glTexCoord2d(1,1),glVertex3f(-1.f, -0.5f, 3.25f);
+    glTexCoord2d(0,0),glVertex3f(-3.f, -0.5f, 3.25f);
 
     glNormal3f(1.0,0.0,0.0);
-    glVertex3f(1.f, 1.f, 7.f);
-    glVertex3f(1.f, -1.f, 7.f);
-    glVertex3f(1.f, -1.f, 3.f);
-    glVertex3f(1.f, 1.f, 3.f);
+    glVertex3f(-1.f, 0.5f, 3.5f);
+    glVertex3f(-1.f, -0.5f, 3.5f);
+    glVertex3f(-1.f, -0.5f, 3.25f);
+    glVertex3f(-1.f, 0.5f, 3.25f);
 
     glNormal3f(1.0,0.0,0.0);
-    glVertex3f(-1.f, 1.f, 7.f);
-    glVertex3f(-1.f, -1.f, 7.f);
-    glVertex3f(-1.f, -1.f, 3.f);
-    glVertex3f(-1.f, 1.f, 3.f);
+    glVertex3f(-3.f, 0.5f, 3.5f);
+    glVertex3f(-3.f, -0.5f, 3.5f);
+    glVertex3f(-3.f, -0.5f, 3.25f);
+    glVertex3f(-3.f, 0.5f, 3.25f);
     glEnd();
 
-    delete [] textures;
+    // 2
+
+    glBindTexture(GL_TEXTURE_2D, textures[2]);
+
+
+    glBegin(GL_QUADS);
+
+    glNormal3f(0.0,0.0,-1.0);
+    glTexCoord2d(1,0),glVertex3f(-3.f, -0.5f, 3.75f);
+    glTexCoord2d(1,1),glVertex3f(-1.f, -0.5f, 3.75f);
+    glTexCoord2d(0,1),glVertex3f(-1.f, 0.5f, 3.75f);
+    glTexCoord2d(0,0),glVertex3f(-3.f, 0.5f, 3.75f);
+
+
+    //glColor3ub(100, 0, 0);
+    glNormal3f(0.0,0.0,1.0);
+    glTexCoord2d(1,0),glVertex3f(-3.f, -0.5f, 4.f);
+    glTexCoord2d(1,1),glVertex3f(-1.f, -0.5f, 4.f);
+    glTexCoord2d(0,1),glVertex3f(-1.f, 0.5f, 4.f);
+    glTexCoord2d(0,0),glVertex3f(-3.f, 0.5f, 4.f);
+
+    glNormal3f(0.0,1.0,0.0);
+    glTexCoord2d(0,0),glVertex3f(-3.f, 0.5f, 4.f);
+    glTexCoord2d(0,1),glVertex3f(-1.f, 0.5f, 4.f);
+    glTexCoord2d(1,1),glVertex3f(-1.f, 0.5f, 3.75f);
+    glTexCoord2d(1,0),glVertex3f(-3.f, 0.5f, 3.75f);
+
+    glNormal3f(0.0,1.0,0.0);
+    glTexCoord2d(1,0),glVertex3f(-3.f, -0.5f, 4.f);
+    glTexCoord2d(1,1),glVertex3f(-1.f, -0.5f, 4.f);
+    glTexCoord2d(1,1),glVertex3f(-1.f, -0.5f, 3.75f);
+    glTexCoord2d(0,0),glVertex3f(-3.f, -0.5f, 3.75f);
+
+    glNormal3f(1.0,0.0,0.0);
+    glVertex3f(-1.f, 0.5f, 4.f);
+    glVertex3f(-1.f, -0.5f, 4.f);
+    glVertex3f(-1.f, -0.5f, 3.75f);
+    glVertex3f(-1.f, 0.5f, 3.75f);
+
+    glNormal3f(1.0,0.0,0.0);
+    glVertex3f(-3.f, 0.5f, 4.f);
+    glVertex3f(-3.f, -0.5f, 4.f);
+    glVertex3f(-3.f, -0.5f, 3.75f);
+    glVertex3f(-3.f, 0.5f, 3.75f);
+    glEnd();
+
+    // 3
+
+    glBindTexture(GL_TEXTURE_2D, textures[1]);
+
+
+    glBegin(GL_QUADS);
+
+    glNormal3f(0.0,0.0,-1.0);
+    glTexCoord2d(1,0),glVertex3f(-3.f, -0.5f, 4.25f);
+    glTexCoord2d(1,1),glVertex3f(-1.f, -0.5f, 4.25f);
+    glTexCoord2d(0,1),glVertex3f(-1.f, 0.5f, 4.25f);
+    glTexCoord2d(0,0),glVertex3f(-3.f, 0.5f, 4.25f);
+
+
+    //glColor3ub(100, 0, 0);
+    glNormal3f(0.0,0.0,1.0);
+    glTexCoord2d(1,0),glVertex3f(-3.f, -0.5f, 4.5f);
+    glTexCoord2d(1,1),glVertex3f(-1.f, -0.5f, 4.5f);
+    glTexCoord2d(0,1),glVertex3f(-1.f, 0.5f, 4.5f);
+    glTexCoord2d(0,0),glVertex3f(-3.f, 0.5f, 4.5f);
+
+    glNormal3f(0.0,1.0,0.0);
+    glTexCoord2d(0,0),glVertex3f(-3.f, 0.5f, 4.5f);
+    glTexCoord2d(0,1),glVertex3f(-1.f, 0.5f, 4.5f);
+    glTexCoord2d(1,1),glVertex3f(-1.f, 0.5f, 4.25f);
+    glTexCoord2d(1,0),glVertex3f(-3.f, 0.5f, 4.25f);
+
+    glNormal3f(0.0,1.0,0.0);
+    glTexCoord2d(1,0),glVertex3f(-3.f, -0.5f, 4.5f);
+    glTexCoord2d(1,1),glVertex3f(-1.f, -0.5f, 4.5f);
+    glTexCoord2d(1,1),glVertex3f(-1.f, -0.5f, 4.25f);
+    glTexCoord2d(0,0),glVertex3f(-3.f, -0.5f, 4.25f);
+
+    glNormal3f(1.0,0.0,0.0);
+    glVertex3f(-1.f, 0.5f, 4.5f);
+    glVertex3f(-1.f, -0.5f, 4.5f);
+    glVertex3f(-1.f, -0.5f, 4.25f);
+    glVertex3f(-1.f, 0.5f, 4.25f);
+
+    glNormal3f(1.0,0.0,0.0);
+    glVertex3f(-3.f, 0.5f, 4.5f);
+    glVertex3f(-3.f, -0.5f, 4.5f);
+    glVertex3f(-3.f, -0.5f, 4.25f);
+    glVertex3f(-3.f, 0.5f, 4.25f);
+    glEnd();
+
+    // 4
+
+    glBindTexture(GL_TEXTURE_2D, textures[1]);
+
+    glBegin(GL_QUADS);
+
+    glNormal3f(0.0,0.0,-1.0);
+    glTexCoord2d(1,0),glVertex3f(1.f, -0.5f, 3.25f);
+    glTexCoord2d(1,1),glVertex3f(3.f, -0.5f, 3.25f);
+    glTexCoord2d(0,1),glVertex3f(3.f, 0.5f, 3.25f);
+    glTexCoord2d(0,0),glVertex3f(1.f, 0.5f, 3.25f);
+
+
+    //glColor3ub(100, 0, 0);
+    glNormal3f(0.0,0.0,1.0);
+    glTexCoord2d(1,0),glVertex3f(1.f, -0.5f, 3.5f);
+    glTexCoord2d(1,1),glVertex3f(3.f, -0.5f, 3.5f);
+    glTexCoord2d(0,1),glVertex3f(3.f, 0.5f, 3.5f);
+    glTexCoord2d(0,0),glVertex3f(1.f, 0.5f, 3.5f);
+
+    glNormal3f(0.0,1.0,0.0);
+    glTexCoord2d(0,0),glVertex3f(1.f, 0.5f, 3.5f);
+    glTexCoord2d(0,1),glVertex3f(3.f, 0.5f, 3.5f);
+    glTexCoord2d(1,1),glVertex3f(3.f, 0.5f, 3.25f);
+    glTexCoord2d(1,0),glVertex3f(1.f, 0.5f, 3.25f);
+
+    glNormal3f(0.0,1.0,0.0);
+    glTexCoord2d(1,0),glVertex3f(1.f, -0.5f, 3.5f);
+    glTexCoord2d(1,1),glVertex3f(3.f, -0.5f, 3.5f);
+    glTexCoord2d(1,1),glVertex3f(3.f, -0.5f, 3.25f);
+    glTexCoord2d(0,0),glVertex3f(1.f, -0.5f, 3.25f);
+
+    glNormal3f(1.0,0.0,0.0);
+    glVertex3f(3.f, 0.5f, 3.5f);
+    glVertex3f(3.f, -0.5f, 3.5f);
+    glVertex3f(3.f, -0.5f, 3.25f);
+    glVertex3f(3.f, 0.5f, 3.25f);
+
+    glNormal3f(1.0,0.0,0.0);
+    glVertex3f(1.f, 0.5f, 3.5f);
+    glVertex3f(1.f, -0.5f, 3.5f);
+    glVertex3f(1.f, -0.5f, 3.25f);
+    glVertex3f(1.f, 0.5f, 3.25f);
+    glEnd();
+
+    // 5
+
+    glBindTexture(GL_TEXTURE_2D, textures[2]);
+
+    glBegin(GL_QUADS);
+
+    glNormal3f(0.0,0.0,-1.0);
+    glTexCoord2d(1,0),glVertex3f(1.f, -0.5f, 3.75f);
+    glTexCoord2d(1,1),glVertex3f(3.f, -0.5f, 3.75f);
+    glTexCoord2d(0,1),glVertex3f(3.f, 0.5f, 3.75f);
+    glTexCoord2d(0,0),glVertex3f(1.f, 0.5f, 3.75f);
+
+
+    //glColor3ub(100, 0, 0);
+    glNormal3f(0.0,0.0,1.0);
+    glTexCoord2d(1,0),glVertex3f(1.f, -0.5f, 4.f);
+    glTexCoord2d(1,1),glVertex3f(3.f, -0.5f, 4.f);
+    glTexCoord2d(0,1),glVertex3f(3.f, 0.5f, 4.f);
+    glTexCoord2d(0,0),glVertex3f(1.f, 0.5f, 4.f);
+
+    glNormal3f(0.0,1.0,0.0);
+    glTexCoord2d(0,0),glVertex3f(1.f, 0.5f, 4.f);
+    glTexCoord2d(0,1),glVertex3f(3.f, 0.5f, 4.f);
+    glTexCoord2d(1,1),glVertex3f(3.f, 0.5f, 3.75f);
+    glTexCoord2d(1,0),glVertex3f(1.f, 0.5f, 3.75f);
+
+    glNormal3f(0.0,1.0,0.0);
+    glTexCoord2d(1,0),glVertex3f(1.f, -0.5f, 4.f);
+    glTexCoord2d(1,1),glVertex3f(3.f, -0.5f, 4.f);
+    glTexCoord2d(1,1),glVertex3f(3.f, -0.5f, 3.75f);
+    glTexCoord2d(0,0),glVertex3f(1.f, -0.5f, 3.75f);
+
+    glNormal3f(1.0,0.0,0.0);
+    glVertex3f(3.f, 0.5f, 4.f);
+    glVertex3f(3.f, -0.5f, 4.f);
+    glVertex3f(3.f, -0.5f, 3.75f);
+    glVertex3f(3.f, 0.5f, 3.75f);
+
+    glNormal3f(1.0,0.0,0.0);
+    glVertex3f(1.f, 0.5f, 4.f);
+    glVertex3f(1.f, -0.5f, 4.f);
+    glVertex3f(1.f, -0.5f, 3.75f);
+    glVertex3f(1.f, 0.5f, 3.75f);
+    glEnd();
+
+    // 6
+
+    glBindTexture(GL_TEXTURE_2D, textures[1]);
+
+    glBegin(GL_QUADS);
+
+    glNormal3f(0.0,0.0,-1.0);
+    glTexCoord2d(1,0),glVertex3f(1.f, -0.5f, 4.25f);
+    glTexCoord2d(1,1),glVertex3f(3.f, -0.5f, 4.25f);
+    glTexCoord2d(0,1),glVertex3f(3.f, 0.5f, 4.25f);
+    glTexCoord2d(0,0),glVertex3f(1.f, 0.5f, 4.25f);
+
+
+    //glColor3ub(100, 0, 0);
+    glNormal3f(0.0,0.0,1.0);
+    glTexCoord2d(1,0),glVertex3f(1.f, -0.5f, 4.5f);
+    glTexCoord2d(1,1),glVertex3f(3.f, -0.5f, 4.5f);
+    glTexCoord2d(0,1),glVertex3f(3.f, 0.5f, 4.5f);
+    glTexCoord2d(0,0),glVertex3f(1.f, 0.5f, 4.5f);
+
+    glNormal3f(0.0,1.0,0.0);
+    glTexCoord2d(0,0),glVertex3f(1.f, 0.5f, 4.5f);
+    glTexCoord2d(0,1),glVertex3f(3.f, 0.5f, 4.5f);
+    glTexCoord2d(1,1),glVertex3f(3.f, 0.5f, 4.25f);
+    glTexCoord2d(1,0),glVertex3f(1.f, 0.5f, 4.25f);
+
+    glNormal3f(0.0,1.0,0.0);
+    glTexCoord2d(1,0),glVertex3f(1.f, -0.5f, 4.5f);
+    glTexCoord2d(1,1),glVertex3f(3.f, -0.5f, 4.5f);
+    glTexCoord2d(1,1),glVertex3f(3.f, -0.5f, 4.25f);
+    glTexCoord2d(0,0),glVertex3f(1.f, -0.5f, 4.25f);
+
+    glNormal3f(1.0,0.0,0.0);
+    glVertex3f(3.f, 0.5f, 4.5f);
+    glVertex3f(3.f, -0.5f, 4.5f);
+    glVertex3f(3.f, -0.5f, 4.25f);
+    glVertex3f(3.f, 0.5f, 4.25f);
+
+    glNormal3f(1.0,0.0,0.0);
+    glVertex3f(1.f, 0.5f, 4.5f);
+    glVertex3f(1.f, -0.5f, 4.5f);
+    glVertex3f(1.f, -0.5f, 4.25f);
+    glVertex3f(1.f, 0.5f, 4.25f);
+    glEnd();
+
+    glPopMatrix();
+
+    delete[] textures;
+
+}
+
+void StationorbitaleLogoTSE::avancerZ(double avanceZ)
+{
+    posZ_ += avanceZ;
+}
+
+void StationorbitaleLogoTSE::avancerX(double avanceX)
+{
+    posX_ += avanceX;
 }

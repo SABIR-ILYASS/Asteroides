@@ -2,6 +2,7 @@
 #define GAMEWIDGET_H
 
 #include "listasteroide.h"
+#include "stationorbitalelogotse.h"
 // #include "asteroide.h"
 #include "vaisseau.h"
 #include "ground.h"
@@ -31,6 +32,7 @@ private:
     Vaisseau * vaisseau_ = nullptr;
     Ground * ground_ = nullptr;
     ListAsteroide * listAsteroide_ = nullptr;
+    StationorbitaleLogoTSE * stationOrbitale_ = nullptr;
     // Asteroide *a = nullptr;
 
     float m_TimeElapsed { 0.0f };

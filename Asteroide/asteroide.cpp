@@ -36,7 +36,7 @@ void Asteroide::Display() const
     QImage textureAstr = astrImage.convertToFormat(QImage ::Format_RGBA8888);
 
     GLuint textures;
-    glGenTextures(1,&textures);
+    glGenTextures(2,&textures);
     // on definit la texture courante
     glBindTexture(GL_TEXTURE_2D, textures);
     // on definit les caracteristique de la textures courantes

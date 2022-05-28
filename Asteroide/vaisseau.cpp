@@ -105,4 +105,6 @@ void Vaisseau::Display() const
     glVertex3f(-1.f, -1.f, 3.f);
     glVertex3f(-1.f, 1.f, 3.f);
     glEnd();
+
+    delete[] textures;
 }
