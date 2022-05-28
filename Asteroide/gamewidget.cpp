@@ -3,6 +3,7 @@
 #include <cmath>
 #include <algorithm>
 
+
 GameWidget::GameWidget(QWidget * parent) : QOpenGLWidget(parent)
 {
     connect(&m_AnimationTimer,  &QTimer::timeout, [&] {
@@ -66,7 +67,9 @@ void GameWidget::paintGL()
         glPushMatrix();
         vaisseau_->Display();
         ground_->Display();
-        // a->Display();
+        listAsteroide_->avancerZ();
+        // listAsteroide_->avancerX();
         listAsteroide_->Display();
         glPopMatrix();
 }
+

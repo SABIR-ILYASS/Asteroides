@@ -5,7 +5,6 @@
 
 Ground::Ground()
 {
-    glEnable(GL_TEXTURE_2D);
     // QImage textureGalaxy = QGLWidget::convertToGLFormat(QImage(":/images/textures/galaxy.jpg"));
 
 }
@@ -26,11 +25,25 @@ void Ground::Display() const
     GLuint textures ;
     glGenTextures(1,&textures);
     glBindTexture(GL_TEXTURE_2D, textures);
+
     // on definit les caracteristique de la textures courantes
     glTexImage2D(GL_TEXTURE_2D,0,4, textureSpace.width(),textureSpace.height(),0,GL_RGBA,GL_UNSIGNED_BYTE,textureSpace.bits());
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 
+
+    glBindTexture(GL_TEXTURE_2D, textures);
+
+    GLUquadric* quadrique2 = gluNewQuadric();
+    gluQuadricDrawStyle(quadrique2,GLU_FILL);
+    gluQuadricTexture(quadrique2,GLU_TRUE);
+    glPushMatrix();
+    int pos = rand()%8;
+    glTranslated(0,0.0 ,0);
+    glNormal3f(0.0,1.0,1.0);
+    gluSphere(quadrique2,100,100,100);
+
+    glPopMatrix();
 
     glBindTexture(GL_TEXTURE_2D, textures);
     glBegin(GL_QUADS);

@@ -91,6 +91,13 @@ MainWindow::MainWindow(QWidget *parent)
     gameWindow();
     cameraWindow();
 
+    m_AnimationTimer_ = new QTimer(this);
+    //Create and set timer
+    m_AnimationTimer_->setInterval(10);
+    connect(m_AnimationTimer_, SIGNAL(timeout()),this, SLOT(updateAllWidget()));
+    m_AnimationTimer_->start();
+
+    inPause_ = false;
 }
 
 MainWindow::~MainWindow()
@@ -126,9 +133,12 @@ void MainWindow::cameraWindow()
     int w = ui->centralwidget->width();
     int h = ui->centralwidget->height();
 
-    QLabel * cameraWindow_ = new QLabel(this);
-    cameraWindow_->setGeometry(w * 0.505 , h * 0.01, w * 0.49, h * 0.8);
-    cameraWindow_->setStyleSheet("background-color:yellow;border-radius:25%");
+    cameraWidget_ = new CameraWidget(this);
+    cameraWidget_->DetectionMain();
+    cameraWidget_->getAction();
+
+    // cameraWidget_->setGeometry(w * 0.505 , h * 0.01, w * 0.49, h * 0.8);
+    // cameraWindow_->setStyleSheet("background-color:yellow;border-radius:25%");
 
     this->gestionAffichageVie(9);
 
@@ -136,6 +146,7 @@ void MainWindow::cameraWindow()
 
 void MainWindow::pause()
 {
+    inPause_ = true;
     PauseWindow pauseWindow(this);
     pauseWindow.exec();
     bool b = pauseWindow.quitter_;
@@ -192,4 +203,17 @@ void MainWindow::UpdateTime()
 void MainWindow::stopTime()
 {
 
+}
+
+void MainWindow::updateAllWidget()
+{
+    if(! inPause_)
+    {
+        cameraWidget_->DetectionMain();
+        cameraWidget_->getAction();
+
+        gameWidget_->update();
+
+        m_TimeElapsed_ += 0.75f;
+    }
 }

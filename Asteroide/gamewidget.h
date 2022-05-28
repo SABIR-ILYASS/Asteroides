@@ -9,17 +9,22 @@
 #include <QOpenGLWidget>
 #include <QKeyEvent>
 #include <QTimer>
+#include <iostream>
+
+using namespace std;
 
 class GameWidget : public QOpenGLWidget
 {
 public:
     GameWidget(QWidget * parent = nullptr);
     int nombreOfAst_;
+    // void keyPressEvent(QKeyEvent *event);
 
 
 protected:
     void initializeGL();
     void paintGL();
+    // void keyPressEvent(QKeyEvent * event) override;
 
 private:
 
@@ -30,6 +35,7 @@ private:
 
     float m_TimeElapsed { 0.0f };
     QTimer m_AnimationTimer;
+    QKeyEvent *event_;
 
 };
 

@@ -3,14 +3,15 @@
 
 #include "asteroide.h"
 #include  <QVector>
+#include <QKeyEvent>
 
 // using namespace std;
 
 class ListAsteroide : public Asteroide
 {
 public:
-    int static const MIN_X = -120;
-    int static const MAX_X = 120;
+    int static const MIN_X = -50;
+    int static const MAX_X = 50;
     int static const MIN_Z = -200;
     int static const MAX_Z = 1;
 
@@ -21,6 +22,7 @@ public:
     void Display() const;
     void creat();
     int * minDistanceXZ(int posX, int posZ);
+    void avancerZ();
 
 private:
     int nombreOfAsteroide_;

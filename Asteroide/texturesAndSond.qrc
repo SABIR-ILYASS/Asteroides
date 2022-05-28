@@ -13,5 +13,8 @@
         <file>textures/positiveAsteroide.jpg</file>
         <file>textures/verre.jpg</file>
         <file>textures/tse.png</file>
+
+        <file>detection.xml</file>
+
     </qresource>
 </RCC>

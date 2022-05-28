@@ -43,15 +43,15 @@ void Asteroide::Display() const
     glTexImage2D(GL_TEXTURE_2D,0,4, textureAstr.width(),textureAstr.height(),0,GL_RGBA,GL_UNSIGNED_BYTE,textureAstr.bits());
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-   GLUquadric* quadrique2 = gluNewQuadric();
-   gluQuadricDrawStyle(quadrique2,GLU_FILL);
-   gluQuadricTexture(quadrique2,GLU_TRUE);
-   glPushMatrix();
+    GLUquadric* quadrique2 = gluNewQuadric();
+    gluQuadricDrawStyle(quadrique2,GLU_FILL);
+    gluQuadricTexture(quadrique2,GLU_TRUE);
+    glPushMatrix();
 
-   glTranslated(posX_ ,posY_ ,posZ_);
-   gluSphere(quadrique2,2,10,10);
-   glNormal3f(0.0,0.0,1.0);
-   glPopMatrix();
+    glTranslated(posX_ ,posY_ ,posZ_);
+    gluSphere(quadrique2,2,10,10);
+    glNormal3f(0.0,0.0,1.0);
+    glPopMatrix();
 }
 
 void Asteroide::setPosition(double x,double y,double z)
@@ -61,4 +61,12 @@ void Asteroide::setPosition(double x,double y,double z)
     posZ_ = z;
 }
 
+void Asteroide::avancerZ(double avanceZ)
+{
+    posZ_ += avanceZ;
+}
 
+void Asteroide::avancerX(double avanceX)
+{
+    posX_ += avanceX;
+}

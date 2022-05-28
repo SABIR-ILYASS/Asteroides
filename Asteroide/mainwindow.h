@@ -9,6 +9,7 @@
 
 #include "chronometer.h"
 #include "gamewidget.h"
+#include "camerawidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -31,6 +32,7 @@ public slots:
     void pause();
     void exit();
     void UpdateTime();
+    void updateAllWidget();
 
 private:
     Ui::MainWindow *ui;
@@ -45,11 +47,16 @@ private:
     QLabel * vieRestant3_;
 
     bool QuitterViaPause_ = false;
+    bool inPause_ = false;
 
     Chronometer c_;
     QTimer time_;
 
+    float m_TimeElapsed_ { 0.0f };
+    QTimer * m_AnimationTimer_;
+
     GameWidget * gameWidget_;
+    CameraWidget * cameraWidget_;
 
 };
 #endif // MAINWINDOW_H

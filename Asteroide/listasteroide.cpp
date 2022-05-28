@@ -118,3 +118,34 @@ int * ListAsteroide::minDistanceXZ(int posX, int posZ)
     return minDistance;
 }
 
+void ListAsteroide::avancerZ()
+{
+    QVector<Asteroide>::iterator itt;
+    // QVectorIterator<Asteroide> itint(vectAsteroide_);
+    for (itt = vectAsteroide_->begin(); itt != vectAsteroide_->end(); ++itt)
+    {
+        itt->avancerZ(1);
+    }
+}
+/*
+void ListAsteroide::avancerX()
+{
+
+    if(event_->key() == Qt::Key_Right)
+    {
+        QVector<Asteroide>::iterator itt;
+        for (itt = vectAsteroide_->begin(); itt != vectAsteroide_->end(); ++itt)
+        {
+            itt->avancerX(1);
+        }
+    } else if(event_->key() == Qt::Key_Left){
+        QVector<Asteroide>::iterator itt;
+        for (itt = vectAsteroide_->begin(); itt != vectAsteroide_->end(); ++itt)
+        {
+            itt->avancerX(-1);
+        }
+    }
+
+}
+*/
+

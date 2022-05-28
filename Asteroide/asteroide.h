@@ -17,6 +17,8 @@ public:
     bool getIdOfAsteroide() {return idOfAsteroide_;};
 
     void setPosition(double x,double y,double z);
+    void avancerZ(double avanceZ);
+    void avancerX(double avanceX);
 
 private:
     double posX_;
