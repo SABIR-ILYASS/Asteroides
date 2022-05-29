@@ -38,8 +38,8 @@ void Ground::Display() const
     gluQuadricDrawStyle(quadrique2,GLU_FILL);
     gluQuadricTexture(quadrique2,GLU_TRUE);
     glPushMatrix();
-    int pos = rand()%8;
-    glTranslated(0,0.0 ,0);
+
+    glTranslated(0,0,0);
     glNormal3f(0.0,1.0,1.0);
     gluSphere(quadrique2,100,100,100);
 

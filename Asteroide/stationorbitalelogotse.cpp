@@ -1,13 +1,14 @@
 #include "stationorbitalelogotse.h"
 
 #include <random>
+#include <QDebug>
 
 StationorbitaleLogoTSE::StationorbitaleLogoTSE()
 {
     posX_ = rand() % (this->MAX_POSITION_X - this->MIN_POSITION_X) + this->MIN_POSITION_X;
-    posY_ = 0;
-    posZ_ = -210;
-
+    posY_ = rand() % (this->MAX_POSITION_Y - this->MIN_POSITION_Y) + this->MIN_POSITION_Y;
+    posZ_ = -200;
+    angleRotation_ = 0;
 }
 
 void StationorbitaleLogoTSE::Display() const
@@ -51,6 +52,7 @@ void StationorbitaleLogoTSE::Display() const
     glPushMatrix();
 
     glTranslated(posX_ ,posY_ ,posZ_);
+    glRotated(angleRotation_, 0, 0, 1);
 
     glBindTexture(GL_TEXTURE_2D, textures[0]);
     //ajouter_eclairage();
@@ -148,7 +150,6 @@ void StationorbitaleLogoTSE::Display() const
 
     glBindTexture(GL_TEXTURE_2D, textures[2]);
 
-
     glBegin(GL_QUADS);
 
     glNormal3f(0.0,0.0,-1.0);
@@ -194,7 +195,6 @@ void StationorbitaleLogoTSE::Display() const
 
     glBindTexture(GL_TEXTURE_2D, textures[1]);
 
-
     glBegin(GL_QUADS);
 
     glNormal3f(0.0,0.0,-1.0);
@@ -202,7 +202,6 @@ void StationorbitaleLogoTSE::Display() const
     glTexCoord2d(1,1),glVertex3f(-1.f, -0.5f, 4.25f);
     glTexCoord2d(0,1),glVertex3f(-1.f, 0.5f, 4.25f);
     glTexCoord2d(0,0),glVertex3f(-3.f, 0.5f, 4.25f);
-
 
     //glColor3ub(100, 0, 0);
     glNormal3f(0.0,0.0,1.0);
@@ -247,7 +246,6 @@ void StationorbitaleLogoTSE::Display() const
     glTexCoord2d(1,1),glVertex3f(3.f, -0.5f, 3.25f);
     glTexCoord2d(0,1),glVertex3f(3.f, 0.5f, 3.25f);
     glTexCoord2d(0,0),glVertex3f(1.f, 0.5f, 3.25f);
-
 
     //glColor3ub(100, 0, 0);
     glNormal3f(0.0,0.0,1.0);
@@ -377,12 +375,18 @@ void StationorbitaleLogoTSE::Display() const
 
 }
 
-void StationorbitaleLogoTSE::avancerZ(double avanceZ)
-{
-    posZ_ += avanceZ;
-}
-
 void StationorbitaleLogoTSE::avancerX(double avanceX)
 {
     posX_ += avanceX;
+}
+
+void StationorbitaleLogoTSE::avancerY(double avanceY)
+{
+    posX_ += avanceY;
+}
+
+void StationorbitaleLogoTSE::avancerZ(double avanceZ)
+{
+    posZ_ += avanceZ;
+    qDebug()<<posZ_;
 }

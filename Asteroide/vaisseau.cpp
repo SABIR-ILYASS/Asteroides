@@ -2,12 +2,12 @@
 
 Vaisseau::Vaisseau()
 {
-
 }
 
 void Vaisseau::Display() const
 {
     glEnable(GL_TEXTURE_2D);
+
     // Initialisation des paramètres
     QImage tex1  = QImage(":/images/textures/textureVaisseau1.jpg");
     QImage texture1 = tex1.convertToFormat(QImage ::Format_RGBA8888);
@@ -40,14 +40,13 @@ void Vaisseau::Display() const
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 
-
     // ajouter moteur vaisseau
     glBindTexture(GL_TEXTURE_2D, textures[1]);
     GLUquadric* quadrique = gluNewQuadric();
     gluQuadricDrawStyle(quadrique,GLU_FILL);
     gluQuadricTexture(quadrique,GLU_TRUE);
+
     glPushMatrix();
-    //glColor3ub(100, 100, 0);
     glTranslated(-0.0,0.0 ,7.0);
     gluCylinder(quadrique,0.5,1,1.1,10,10);
     glNormal3f(0.0,0.0,1.0);
@@ -57,11 +56,13 @@ void Vaisseau::Display() const
     gluQuadricDrawStyle(quadrique2,GLU_FILL);
     gluQuadricTexture(quadrique2,GLU_TRUE);
     glPushMatrix();
-    //glColor3ub(100, 100, 0);
+
     glTranslated(-0.0,0.0 ,8.2);
     gluSphere(quadrique2,0.5,10,10);
     glNormal3f(0.0,0.0,1.0);
+
     glPopMatrix();
+
     glBindTexture(GL_TEXTURE_2D, textures[0]);
     //ajouter_eclairage();
 
@@ -72,7 +73,6 @@ void Vaisseau::Display() const
     glTexCoord2d(1,1),glVertex3f(1.f, -1.f, 3.f);
     glTexCoord2d(0,1),glVertex3f(1.f, 1.f, 3.f);
     glTexCoord2d(0,0),glVertex3f(-1.f, 1.f, 3.f);
-
 
     //glColor3ub(100, 0, 0);
     glNormal3f(0.0,0.0,1.0);
@@ -107,4 +107,12 @@ void Vaisseau::Display() const
     glEnd();
 
     delete[] textures;
+}
+
+void Vaisseau::eclairageVaisseau() const
+{
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    GLfloat light_tab[] = {0.0,0.0 ,0 ,1.0};
+    glLightfv(GL_LIGHT0,GL_POSITION,light_tab);
 }

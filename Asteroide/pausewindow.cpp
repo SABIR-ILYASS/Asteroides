@@ -52,7 +52,6 @@ void PauseWindow::exit()
     if (reply == QMessageBox::Yes) {
         quitter_ = true;
         close();
-        qDebug()<<120000000;
     }
     else{
         // pause

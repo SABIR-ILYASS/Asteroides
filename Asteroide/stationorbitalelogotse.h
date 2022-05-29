@@ -11,23 +11,32 @@ class StationorbitaleLogoTSE
 public:
     static int const MIN_POSITION_X = -50;
     static int const MAX_POSITION_X = 50;
-    static int const POSITION_Y = 0;
-    static int const POSITION_Z = -200;
-
-    double getPositionX(){return posX_;};
-    double getPositionY(){return posY_;};
-    double getPositionZ(){return posZ_;};
+    static int const MIN_POSITION_Y = -10;
+    static int const MAX_POSITION_Y = 10;
 
     StationorbitaleLogoTSE();
+
+    double getPositionX(){return posX_;};
+    void setPositionX(double posX){posX_ = posX;};
+    double getPositionY(){return posY_;};
+    void setPositionY(double posY){posY_ = posY;};
+    double getPositionZ(){return posZ_;};
+    void setPositionZ(double posZ){posZ_ = posZ;};
+    int getAngleRoration(){return angleRotation_;};
+    void setRotation(int angle){angleRotation_ = angle;};
+
+
     void Display() const;
 
-    void avancerZ(double avanceZ);
     void avancerX(double avanceX);
+    void avancerY(double avanceY);
+    void avancerZ(double avanceZ);
 
 private:
     double posX_;
     double posY_;
     double posZ_;
+    int angleRotation_;
 };
 
 #endif // STATIONORBITALELOGOTSE_H

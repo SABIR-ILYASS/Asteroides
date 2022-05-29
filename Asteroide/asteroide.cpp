@@ -10,16 +10,18 @@ Asteroide::Asteroide()
     posX_ = 0;
     posY_ = 0;
     posZ_ = 0;
+    rayon_ = 2;
     idOfAsteroide_ = false;
 
 }
 
 
-Asteroide::Asteroide(double posX,double posY,double posZ, bool b)
+Asteroide::Asteroide(double posX,double posY,double posZ,double rayon, bool b)
 {
     posX_ = posX;
     posY_ = posY;
     posZ_ = posZ;
+    rayon_ = rayon;
     idOfAsteroide_ = b;
 }
 
@@ -49,7 +51,7 @@ void Asteroide::Display() const
     glPushMatrix();
 
     glTranslated(posX_ ,posY_ ,posZ_);
-    gluSphere(quadrique2,2,10,10);
+    gluSphere(quadrique2,rayon_,10,10);
     glNormal3f(0.0,0.0,1.0);
     glPopMatrix();
 }
@@ -61,12 +63,17 @@ void Asteroide::setPosition(double x,double y,double z)
     posZ_ = z;
 }
 
-void Asteroide::avancerZ(double avanceZ)
-{
-    posZ_ += avanceZ;
-}
-
 void Asteroide::avancerX(double avanceX)
 {
     posX_ += avanceX;
+}
+
+void Asteroide::avancerY(double avanceY)
+{
+    posY_ += avanceY;
+}
+
+void Asteroide::avancerZ(double avanceZ)
+{
+    posZ_ += avanceZ;
 }

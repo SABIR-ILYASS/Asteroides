@@ -12,6 +12,9 @@ public:
     Vaisseau();
     ~Vaisseau();
 
+    // eclairage
+    void eclairageVaisseau() const;
+
     void Display() const;
 };
 

@@ -33,6 +33,7 @@ public slots:
     void exit();
     void UpdateTime();
     void updateAllWidget();
+    void finDeJeu();
 
 private:
     Ui::MainWindow *ui;
