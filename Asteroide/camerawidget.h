@@ -17,21 +17,24 @@ class CameraWidget : public QWidget
     Q_OBJECT
 public:
     explicit CameraWidget(QWidget *parent = nullptr);
-    void DetectionMain();
-    void setAction(QString act){action = act;}
-    QString getAction(){return action;};
+
+    void detectionOfHand();
+    void setAction(QString action){detecteAction_ = action;};
+    QString getAction(){return detecteAction_;};
 
 private:
-    VideoCapture cap;
-    QLabel *cadre_affichage;
-    Mat frame;
-    QImage image;
-    int posx;
-    int posy;
-    float posr [3][2];
-    QPixmap pimage ;
-    cv::CascadeClassifier face_cascade;
-    QString action;
+    int posX_;
+    int posY_;
+
+    VideoCapture capture_;
+    QLabel * cadreAffichage_;
+    Mat frame_;
+    QImage image_;
+
+    float posR [3][2];
+    QPixmap pImage_ ;
+    cv::CascadeClassifier faceCascade_;
+    QString detecteAction_;
 signals:
 
 };

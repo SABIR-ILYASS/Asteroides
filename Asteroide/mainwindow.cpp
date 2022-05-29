@@ -88,6 +88,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(exit_, SIGNAL(clicked()), this, SLOT(exit()));
     connect(pause_, SIGNAL(clicked()), this, SLOT(pause()));
 
+
+    gameWidget_ = new GameWidget(this);
+    gameWidget_->setIdPressButton(this->idPressButton_);
+
     gameWindow();
     cameraWindow();
 
@@ -107,6 +111,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::gameWindow()
 {
+
     int w = ui->centralwidget->width();
     int h = ui->centralwidget->height();
 
@@ -114,8 +119,6 @@ void MainWindow::gameWindow()
     // gameWindow_->setGeometry(w * 0.005, h * 0.01, w * 0.49, h * 0.8);
     // gameWindow_->setStyleSheet("background-color:red;border-radius:25%");
 
-
-    gameWidget_ = new GameWidget(this);
     gameWidget_->nombreOfAst_ = this->nombreOfAsteroide_;
 
     gameWidget_->setGeometry(w * 0.005, h * 0.01, w * 0.49, h * 0.8);
@@ -130,11 +133,8 @@ void MainWindow::gameWindow()
 
 void MainWindow::cameraWindow()
 {
-    int w = ui->centralwidget->width();
-    int h = ui->centralwidget->height();
-
     cameraWidget_ = new CameraWidget(this);
-    cameraWidget_->DetectionMain();
+    cameraWidget_->detectionOfHand();
     cameraWidget_->getAction();
 
     // cameraWidget_->setGeometry(w * 0.505 , h * 0.01, w * 0.49, h * 0.8);
@@ -209,11 +209,48 @@ void MainWindow::updateAllWidget()
 {
     if(! inPause_)
     {
-        cameraWidget_->DetectionMain();
+        cameraWidget_->detectionOfHand();
         cameraWidget_->getAction();
+
+        // gameWidget_->setIdPressButton(this->idPressButton_);
 
         gameWidget_->update();
 
         m_TimeElapsed_ += 0.75f;
     }
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_A)
+    {
+        idPressButton_ = 1;
+        qDebug()<<"A";
+    }
+    else if (event->key() == Qt::Key_E)
+    {
+        idPressButton_ = 2;
+        qDebug()<<"E";
+    }
+    else if (event->key() == Qt::Key_Z)
+    {
+        idPressButton_ = 3;
+        qDebug()<<"Z";
+    }
+    else if (event->key() == Qt::Key_S)
+    {
+        idPressButton_ = 4;
+        qDebug()<<"S";
+    }
+    else if (event->key() == Qt::Key_X)
+    {
+        idPressButton_ = 0;
+        qDebug()<<"X";
+    }
+    else
+    {
+        idPressButton_ = -1;
+        qDebug()<<"clavier";
+    }
+    qDebug()<<idPressButton_;
 }

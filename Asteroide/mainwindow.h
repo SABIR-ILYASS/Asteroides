@@ -28,12 +28,15 @@ public:
     void stopTime();
     int nombreOfAsteroide_;
 
+    void keyPressEvent(QKeyEvent * event);
+
+
 public slots:
     void pause();
     void exit();
     void UpdateTime();
     void updateAllWidget();
-    void finDeJeu();
+    // void finDeJeu();
 
 private:
     Ui::MainWindow *ui;
@@ -58,6 +61,11 @@ private:
 
     GameWidget * gameWidget_;
     CameraWidget * cameraWidget_;
+
+    int idPressButton_;
+
+
+    // KeyboardData * keyboardData_;
 
 };
 #endif // MAINWINDOW_H

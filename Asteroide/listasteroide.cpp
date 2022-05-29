@@ -128,31 +128,29 @@ int * ListAsteroide::minDistanceXYZ(int posX, int posY, int posZ)
     return minDistance;
 }
 
-void ListAsteroide::avancerX()
+void ListAsteroide::avancerX(int avancementX)
 {
     QVector<Asteroide>::iterator itt;
     for (itt = vectAsteroide_->begin(); itt != vectAsteroide_->end(); ++itt)
     {
-        itt->avancerX(1);
+        itt->avancerX(avancementX);
     }
 }
 
-void ListAsteroide::avancerY()
+void ListAsteroide::avancerY(int avancementY)
 {
     QVector<Asteroide>::iterator itt;
     for (itt = vectAsteroide_->begin(); itt != vectAsteroide_->end(); ++itt)
     {
-        itt->avancerY(1);
+        itt->avancerY(avancementY);
     }
 }
 
-void ListAsteroide::avancerZ()
+void ListAsteroide::avancerZ(int avancementZ)
 {
     QVector<Asteroide>::iterator itt;
     for (itt = vectAsteroide_->begin(); itt != vectAsteroide_->end(); ++itt)
     {
-        itt->avancerZ(1);
+        itt->avancerZ(avancementZ);
     }
 }
-
-

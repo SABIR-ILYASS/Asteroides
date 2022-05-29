@@ -27,9 +27,9 @@ public:
     void creat();
     int * minDistanceXYZ(int posX, int posY, int posZ);
 
-    void avancerX();
-    void avancerY();
-    void avancerZ();
+    void avancerX(int avancementX);
+    void avancerY(int avancementY);
+    void avancerZ(int avancementZ);
 
 private:
     int nombreOfAsteroide_;

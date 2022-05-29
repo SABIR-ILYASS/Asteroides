@@ -1,15 +1,17 @@
 #ifndef GAMEWIDGET_H
 #define GAMEWIDGET_H
 
-#include "listasteroide.h"
-#include "stationorbitalelogotse.h"
-// #include "asteroide.h"
 #include "vaisseau.h"
 #include "ground.h"
+#include "listasteroide.h"
+#include "stationorbitalelogotse.h"
+#include "keyboarddata.h"
 
 #include <QOpenGLWidget>
 #include <QKeyEvent>
 #include <QTimer>
+#include <QElapsedTimer>
+#include <qpainter.h>
 #include <iostream>
 
 using namespace std;
@@ -19,8 +21,10 @@ class GameWidget : public QOpenGLWidget
 public:
     GameWidget(QWidget * parent = nullptr);
     int nombreOfAst_;
-    // void keyPressEvent(QKeyEvent *event);
+    int getIdPressButton() {return idPressButton_;};
+    void setIdPressButton(int n){idPressButton_ = n;};
 
+    // void keyPressEvent(QKeyEvent *event);
 
 protected:
     void initializeGL();
@@ -33,11 +37,21 @@ private:
     Ground * ground_ = nullptr;
     ListAsteroide * listAsteroide_ = nullptr;
     StationorbitaleLogoTSE * stationOrbitale_ = nullptr;
-    // Asteroide *a = nullptr;
+
+    // int e
+
+    int positionListAsteroide_;
+    int positionStationOrbitale_;
 
     float m_TimeElapsed { 0.0f };
-    QTimer m_AnimationTimer;
-    QKeyEvent *event_;
+    QTimer * m_AnimationTimer;
+    QElapsedTimer * timer;
+
+    QString detectionAction_;
+
+    string evenement_ = "nothing";
+
+    int idPressButton_;
 
 };
 
