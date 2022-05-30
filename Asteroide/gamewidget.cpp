@@ -29,6 +29,9 @@ GameWidget::GameWidget(QWidget * parent) : QOpenGLWidget(parent)
 
     stationOrbitale_ = new StationorbitaleLogoTSE();
     idPressButton_ = 0;
+
+    score_ = 0;
+    nombreOfCollision_ =0;
 }
 
 void GameWidget::initializeGL()
@@ -76,40 +79,40 @@ void GameWidget::paintGL()
         qDebug()<<"---------------";
 
         double avancementX = 0, avancementY = 0, avancementZ = 0;
-        if (detectionAction_ == "RIGHT" || idPressButton_ == 1)
+        if (detectionAction_ == "RIGHT" || idPressButton_ == 2)
         {
             avancementX = -1;
             avancementY = 0;
-            avancementZ = 1;
+            avancementZ = 0;
             qDebug()<<"Right";
         }
-        else if (detectionAction_ == "LEFT" || idPressButton_ == 2)
+        else if (detectionAction_ == "LEFT" || idPressButton_ == 1)
         {
             avancementX = 1;
             avancementY = 0;
-            avancementZ = 1;
+            avancementZ = 0;
             qDebug()<<"LEFT";
 
         }
-        else if (detectionAction_ == "UP" || idPressButton_ == 3)
+        else if (detectionAction_ == "UP" || idPressButton_ == 4)
         {
             avancementX = 0;
             avancementY = 1;
-            avancementZ = 1;
+            avancementZ = 0;
             qDebug()<<"Up";
         }
-        else if (detectionAction_ == "DOWN" || idPressButton_ == 4)
+        else if (detectionAction_ == "DOWN" || idPressButton_ == 3)
         {
             avancementX = 0;
             avancementY = -1;
-            avancementZ = 1;
+            avancementZ = 0;
             qDebug()<<"Down";
         }
         else if (detectionAction_ == "STOP" || idPressButton_ == -1)
         {
             avancementX = 0;
             avancementY = 0;
-            avancementZ = 1;
+            avancementZ = 0;
             qDebug()<<"Stop";
         }
 
@@ -123,8 +126,6 @@ void GameWidget::paintGL()
         else
         {
         }
-
-        avancementZ += 1;
 
         int angle = stationOrbitale_->getAngleRoration();
         stationOrbitale_->setRotation(angle + 9);
@@ -146,3 +147,8 @@ void GameWidget::paintGL()
         glPopMatrix();
 }
 
+void GameWidget::detecteCollision()
+{
+    score_ = listAsteroide_->getScore();
+    nombreOfCollision_ = listAsteroide_->getNombreOfCollision();
+}

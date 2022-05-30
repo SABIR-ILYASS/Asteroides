@@ -2,12 +2,15 @@
 #include "asteroide.h"
 
 #include <random>
+#include <QtMath>
 #include <QDebug>
 
 ListAsteroide::ListAsteroide(int n)
 {
     nombreOfAsteroide_ = n;
     vectAsteroide_ = new QVector<Asteroide>();
+    score_ = 0;
+    nombreOfcollision_ = 0;
 
 }
 
@@ -27,7 +30,8 @@ void ListAsteroide::ajouterAsteroide(Asteroide a)
 
 void ListAsteroide::supprimerAsteroide(int n)
 {
-
+    if (n > 0 and n < vectAsteroide_->length())
+        vectAsteroide_->remove(n);
 }
 
 void ListAsteroide::creat()
@@ -50,7 +54,7 @@ void ListAsteroide::creat()
 
         int * disMinXYZ = this->minDistanceXYZ(posX, posY, posZ);
 
-        while(disMinXYZ[0] < 7 && disMinXYZ[1] < 7 && disMinXYZ[2] < 7)
+        while(disMinXYZ[0] < 10 && disMinXYZ[1] < 10 && disMinXYZ[2] < 10)
         {
             int posX = rand() % (this->MAX_X - this->MIN_X) + this->MIN_X;
             int posY = rand() % (this->MAX_Y - this->MIN_Y) + this->MIN_Y;
@@ -63,6 +67,8 @@ void ListAsteroide::creat()
     }
 
     // creation des asteroides negatifs
+    qDebug()<<"nombre of asteroide";
+    qDebug()<<nombreOfAsteroide_;
 
     for (int i = 0; i < nombreOfAsteroide_; i++)
     {
@@ -74,7 +80,7 @@ void ListAsteroide::creat()
 
         int * disMinXYZ2 = this->minDistanceXYZ(posX, posY, posZ);
 
-        while(disMinXYZ2[0] < 7 && disMinXYZ2[1] < 7 && disMinXYZ2[2] < 7)
+        while(disMinXYZ2[0] < 10 && disMinXYZ2[1] < 10 && disMinXYZ2[2] < 10)
         {
             int posX = rand() % (this->MAX_X - this->MIN_X) + this->MIN_X;
             int posY = rand() % (this->MAX_Y - this->MIN_Y) + this->MIN_Y;
@@ -152,5 +158,21 @@ void ListAsteroide::avancerZ(int avancementZ)
     for (itt = vectAsteroide_->begin(); itt != vectAsteroide_->end(); ++itt)
     {
         itt->avancerZ(avancementZ);
+    }
+}
+
+void ListAsteroide::detecteCollision()
+{
+    QVector<Asteroide>::iterator itt;
+    for (itt = vectAsteroide_->begin(); itt != vectAsteroide_->end(); ++itt)
+    {
+        if((qSqrt(qPow(itt->getPositionX(),2) + qPow(itt->getPositionY(),2) + qPow(itt->getPositionZ() - 8,2))) < 4)
+        {
+            if (itt->getIdOfAsteroide())
+                score_++;
+            else
+                nombreOfcollision_++;
+
+        }
     }
 }

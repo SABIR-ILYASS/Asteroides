@@ -2,30 +2,35 @@
 #include "ui_mainwindow.h"
 #include "asknombreasteroide.h"
 #include "pausewindow.h"
+#include "listasteroide.h"
 #include "gamewidget.h"
 
 #include <QLabel>
 #include <QPushButton>
 #include <QMessageBox>
 #include <QTimer>
-#include <QTime>
-
+#include <QtMath>
 #include <QElapsedTimer>
-
+#include <QVector>
 #include <QVector>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    nombreScore_ = 0;
+    nombreOfNegatifCollision_ = 0;
+
     ui->setupUi(this);
     setFixedSize(1200, 600);
+
+    QString stringScore = QString::number(nombreScore_);
 
     // add buttons and Labels
     exit_ = new QPushButton("Quitter la partie", this);
     pause_ = new QPushButton("Pause", this);
     timer_ = new QLabel(this);
-    score_ = new QLabel("<h1>Score: </h1>", this);
+    score_ = new QLabel("Score: " + stringScore, this);
     vieRestant1_ = new QLabel(this);
     vieRestant2_ = new QLabel(this);
     vieRestant3_ = new QLabel(this);
@@ -102,6 +107,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_AnimationTimer_->start();
 
     inPause_ = false;
+
 }
 
 MainWindow::~MainWindow()
@@ -140,8 +146,7 @@ void MainWindow::cameraWindow()
     // cameraWidget_->setGeometry(w * 0.505 , h * 0.01, w * 0.49, h * 0.8);
     // cameraWindow_->setStyleSheet("background-color:yellow;border-radius:25%");
 
-    this->gestionAffichageVie(9);
-
+    this->gestionAffichageVie();
 }
 
 void MainWindow::pause()
@@ -170,15 +175,15 @@ void MainWindow::exit()
     }
 }
 
-void MainWindow::gestionAffichageVie(int n){
-    if (n == 0){
+void MainWindow::gestionAffichageVie(){
+    if (nombreOfNegatifCollision_ >= 3){
         vieRestant1_->hide();
         vieRestant2_->hide();
         vieRestant3_->hide();
-    } else if(n == 1){
+    } else if(nombreOfNegatifCollision_ == 2){
         vieRestant2_->hide();
         vieRestant3_->hide();
-    } else if (n == 2){
+    } else if (nombreOfNegatifCollision_ == 1){
         vieRestant3_->hide();
     }
 }
@@ -212,10 +217,12 @@ void MainWindow::updateAllWidget()
         cameraWidget_->detectionOfHand();
         cameraWidget_->getAction();
 
-        // gameWidget_->setIdPressButton(this->idPressButton_);
-
+        gameWidget_->setIdPressButton(this->idPressButton_);
+        gameWidget_->detecteCollision();
+        this->detecteCollision();
+        this->updateStringScore();
+        this->gestionAffichageVie();
         gameWidget_->update();
-
         m_TimeElapsed_ += 0.75f;
     }
 }
@@ -253,4 +260,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         qDebug()<<"clavier";
     }
     qDebug()<<idPressButton_;
+}
+
+void MainWindow::detecteCollision()
+{
+    nombreScore_ = gameWidget_->getScore();
+    nombreOfNegatifCollision_ = gameWidget_->getNombreOfCollision();
+}
+
+void MainWindow::updateStringScore()
+{
+    QString stringScore = QString::number(nombreScore_);
+    score_->setText("Score: " + stringScore);
 }

@@ -24,9 +24,12 @@ public:
     ~MainWindow();
     void gameWindow();
     void cameraWindow();
-    void gestionAffichageVie(int n);
+    void gestionAffichageVie();
     void stopTime();
-    int nombreOfAsteroide_;
+
+    void updateStringScore();
+
+    void detecteCollision();
 
     void keyPressEvent(QKeyEvent * event);
 
@@ -64,6 +67,10 @@ private:
 
     int idPressButton_;
 
+    int nombreOfAsteroide_;
+
+    int nombreScore_;
+    int nombreOfNegatifCollision_;
 
     // KeyboardData * keyboardData_;
 

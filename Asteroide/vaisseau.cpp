@@ -47,7 +47,7 @@ void Vaisseau::Display() const
     gluQuadricTexture(quadrique,GLU_TRUE);
 
     glPushMatrix();
-    glTranslated(-0.0,0.0 ,7.0);
+    glTranslated(0.0,0.0 ,7.0);
     gluCylinder(quadrique,0.5,1,1.1,10,10);
     glNormal3f(0.0,0.0,1.0);
     glPopMatrix();
@@ -57,7 +57,7 @@ void Vaisseau::Display() const
     gluQuadricTexture(quadrique2,GLU_TRUE);
     glPushMatrix();
 
-    glTranslated(-0.0,0.0 ,8.2);
+    glTranslated(0.0,0.0 ,8.2);
     gluSphere(quadrique2,0.5,10,10);
     glNormal3f(0.0,0.0,1.0);
 

@@ -24,6 +24,13 @@ public:
     int getIdPressButton() {return idPressButton_;};
     void setIdPressButton(int n){idPressButton_ = n;};
 
+    ListAsteroide getListOfAsteroide(){return * listAsteroide_;};
+
+    void detecteCollision();
+
+    int getScore(){return score_;};
+    int getNombreOfCollision(){return nombreOfCollision_;};
+
     // void keyPressEvent(QKeyEvent *event);
 
 protected:
@@ -52,6 +59,9 @@ private:
     string evenement_ = "nothing";
 
     int idPressButton_;
+
+    int score_;
+    int nombreOfCollision_;
 
 };
 

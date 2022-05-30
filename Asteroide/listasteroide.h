@@ -16,7 +16,7 @@ public:
     int static const MIN_Y = -20;
     int static const MIN_Z = -200;
     int static const MAX_Z = 1;
-    int static const MAX_RAYON  = 3;
+    int static const MAX_RAYON  = 5;
     int static const MIN_RAYON = 1;
 
     ListAsteroide(int n);
@@ -31,9 +31,21 @@ public:
     void avancerY(int avancementY);
     void avancerZ(int avancementZ);
 
+    void setNombreOfAsteroide(int n){ nombreOfAsteroide_ = n;};
+    int getNombreOfAsteroide() {return nombreOfAsteroide_;};
+
+    int getScore(){return score_;};
+    int getNombreOfCollision(){return nombreOfcollision_;};
+
+    void detecteCollision();
+
+    QVector<Asteroide> getListOfAsteroide(){return * vectAsteroide_;};
+
 private:
     int nombreOfAsteroide_;
     QVector<Asteroide> * vectAsteroide_;
+    int score_;
+    int nombreOfcollision_;
 
 };
 
