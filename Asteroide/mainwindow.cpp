@@ -102,8 +102,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_AnimationTimer_ = new QTimer(this);
     //Create and set timer
-    m_AnimationTimer_->setInterval(10);
+    m_AnimationTimer_->setInterval(5);
     connect(m_AnimationTimer_, SIGNAL(timeout()),this, SLOT(updateAllWidget()));
+    // connect(m_AnimationTimer_, SIGNAL(timeout()),this, SLOT(finDejeu()));
     m_AnimationTimer_->start();
 
     inPause_ = false;
@@ -216,16 +217,15 @@ void MainWindow::updateAllWidget()
 
         gameWidget_->setIdPressButton(this->idPressButton_);
         gameWidget_->detecteCollision();
+        this->detecteFinPartie();
         this->detecteCollision();
         this->updateStringScore();
         this->gestionAffichageVie();
         gameWidget_->update();
         m_TimeElapsed_ += 0.75f;
 
-        if(finDeJeu_)
-        {
-            this->finDeJeu();
-        }
+        finDeJeu();
+
     }
 }
 
@@ -262,6 +262,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         qDebug()<<"clavier";
     }
     qDebug()<<idPressButton_;
+    qDebug()<<finDeJeu_;
 }
 
 void MainWindow::detecteCollision()
@@ -282,19 +283,22 @@ void MainWindow::detecteFinPartie()
     int getPositionY = gameWidget_->getPositionOfStationY();
     int getPositionZ = gameWidget_->getPositionOfStationZ();
 
-    if (getPositionZ > 7)
+    if (getPositionZ == 0)
     {
-        if(qSqrt(abs(getPositionX) + abs(getPositionY) + abs(getPositionZ)) < 3 && nombreOfNegatifCollision_ <= 3)
+        qDebug()<<"distaaaaaaaaaaance";
+        qDebug()<<qSqrt(qPow(getPositionX,2) + qPow(getPositionY,2) + qPow(getPositionZ,2));
+        if(qSqrt(qPow(getPositionX,2) + qPow(getPositionY,2) + qPow(getPositionZ,2)) < 5 && nombreOfNegatifCollision_ <= 3)
         {
             finDeJeu_ = true;
             isWin_ = true;
         }
-
-        else{
+        else
+        {
             finDeJeu_ = true;
             isWin_ = false;
         }
-    } else
+
+    } else if (nombreOfNegatifCollision_ >= 3)
     {
         finDeJeu_ = false;
         isWin_ = false;
@@ -305,6 +309,9 @@ void MainWindow::detecteFinPartie()
 void MainWindow::finDeJeu()
 {
     inPause_ = true;
-    FinDeJeu finDeJeuWindow(this);
-    finDeJeuWindow.exec();
+    if (finDeJeu_)
+    {
+        FinDeJeu finDeJeuWindow(this);
+        finDeJeuWindow.exec();
+    }
 }

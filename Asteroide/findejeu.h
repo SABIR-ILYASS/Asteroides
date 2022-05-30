@@ -2,6 +2,8 @@
 #define FINDEJEU_H
 
 #include <QDialog>
+#include <QPushButton>
+#include <QLabel>
 
 namespace Ui {
 class FinDeJeu;
@@ -15,8 +17,29 @@ public:
     explicit FinDeJeu(QWidget *parent = nullptr);
     ~FinDeJeu();
 
+    bool getQuitteer(){return quitteer_;};
+
+public slots:
+    void play();
+    void quitter();
+
 private:
     Ui::FinDeJeu *ui;
+
+    QPushButton * rejouer_;
+    QPushButton * quitter_;
+
+    QLabel * titleGame_;
+    QLabel * gagner_;
+    QLabel * score_;
+    QLabel * time_;
+
+    int nbrScore_;
+    QString strTime_;
+
+    bool isGagne_ = false;
+
+    bool quitteer_ = false;
 };
 
 #endif // FINDEJEU_H

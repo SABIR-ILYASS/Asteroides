@@ -388,5 +388,4 @@ void StationorbitaleLogoTSE::avancerY(double avanceY)
 void StationorbitaleLogoTSE::avancerZ(double avanceZ)
 {
     posZ_ += avanceZ;
-    qDebug()<<posZ_;
 }
