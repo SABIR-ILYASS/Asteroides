@@ -383,11 +383,13 @@ void StationorbitaleLogoTSE::avancerX(double avanceX)
     posX_ += avanceX;
 }
 
+// fonction pour avancer la station dans l'axe des Y
 void StationorbitaleLogoTSE::avancerY(double avanceY)
 {
     posX_ += avanceY;
 }
 
+// fonction pour avancer la station dans l'axe des Z
 void StationorbitaleLogoTSE::avancerZ(double avanceZ)
 {
     posZ_ += avanceZ;
