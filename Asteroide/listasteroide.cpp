@@ -5,6 +5,7 @@
 #include <QtMath>
 #include <QDebug>
 
+// constructeur de ListAsteroide
 ListAsteroide::ListAsteroide(int n)
 {
     nombreOfAsteroide_ = n;
@@ -22,18 +23,20 @@ ListAsteroide::~ListAsteroide()
 }
 */
 
+// fonction permet d'ajouter un asteroide a la liste des asteroides
 void ListAsteroide::ajouterAsteroide(Asteroide a)
 {
     vectAsteroide_->append(a);
-    // this->creat();
 }
 
+// fonction permet de supprimer un asteroide a la liste des asteroides
 void ListAsteroide::supprimerAsteroide(int n)
 {
     if (n > 0 and n < vectAsteroide_->length())
         vectAsteroide_->remove(n);
 }
 
+// creer des asteroides de positionnement aléatoires
 void ListAsteroide::creat()
 {
     // creation des asteroides positifs
@@ -93,6 +96,7 @@ void ListAsteroide::creat()
     }
 }
 
+// fonction d'affichage des asteroides
 void ListAsteroide::Display() const
 {
     for (int i = 0; i < vectAsteroide_->length(); i++)
@@ -100,6 +104,8 @@ void ListAsteroide::Display() const
 
 }
 
+// fonction va nous servir de comparer les distances entre les asteroides
+// pour eviter les collisions a la construction du liste des asteroides
 int * ListAsteroide::minDistanceXYZ(int posX, int posY, int posZ)
 {
     int * minDistance = new int[3];
@@ -134,6 +140,8 @@ int * ListAsteroide::minDistanceXYZ(int posX, int posY, int posZ)
     return minDistance;
 }
 
+// fonction permet a tout element de la list des asteroides d'avancer par
+// le meme avancement suivant  X
 void ListAsteroide::avancerX(int avancementX)
 {
     QVector<Asteroide>::iterator itt;
@@ -143,6 +151,8 @@ void ListAsteroide::avancerX(int avancementX)
     }
 }
 
+// fonction permet a tout element de la list des asteroides d'avancer par
+// le meme avancement suivant  Y
 void ListAsteroide::avancerY(int avancementY)
 {
     QVector<Asteroide>::iterator itt;
@@ -152,6 +162,8 @@ void ListAsteroide::avancerY(int avancementY)
     }
 }
 
+// fonction permet a tout element de la list des asteroides d'avancer par
+// le meme avancement suivant  Z
 void ListAsteroide::avancerZ(int avancementZ)
 {
     QVector<Asteroide>::iterator itt;
@@ -161,6 +173,7 @@ void ListAsteroide::avancerZ(int avancementZ)
     }
 }
 
+// fonction permet de detecter les collisions
 void ListAsteroide::detecteCollision()
 {
     QVector<Asteroide>::iterator itt;

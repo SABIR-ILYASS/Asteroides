@@ -8,6 +8,7 @@
 
 using namespace std;
 
+// constructeur
 AskNombreAsteroide::AskNombreAsteroide(QWidget *parent) :
     QDialog(parent, Qt::FramelessWindowHint),
     ui(new Ui::AskNombreAsteroide)
@@ -54,12 +55,14 @@ AskNombreAsteroide::~AskNombreAsteroide()
     delete ui;
 }
 
+// si le nombre entrée par l'utilisateur est entre 0 et 30 le joueur peut commancer le jeu
 void AskNombreAsteroide::play()
 {
     int n = this->nmbOfAsteroide();
-    if (n > 0 && n <= 40) close();
+    if (n > 0 && n <= 30) close();
 }
 
+// cette fonction permet de renvoie le nombre d'asteroides entrées par l'utilisateur
 int AskNombreAsteroide::nmbOfAsteroide()
 {
     QString number = nbrAst_->text();

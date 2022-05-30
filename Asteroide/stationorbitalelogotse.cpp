@@ -3,6 +3,7 @@
 #include <random>
 #include <QDebug>
 
+// constructeur pour StationorbitaleLogoTSE
 StationorbitaleLogoTSE::StationorbitaleLogoTSE()
 {
     posX_ = rand() % (this->MAX_POSITION_X - this->MIN_POSITION_X) + this->MIN_POSITION_X;
@@ -11,6 +12,7 @@ StationorbitaleLogoTSE::StationorbitaleLogoTSE()
     angleRotation_ = 0;
 }
 
+// fonction d'affichage de StationorbitaleLogoTSE
 void StationorbitaleLogoTSE::Display() const
 {
     glEnable(GL_TEXTURE_2D);
@@ -375,6 +377,7 @@ void StationorbitaleLogoTSE::Display() const
 
 }
 
+// fonction pour avancer la station dans l'axe des X
 void StationorbitaleLogoTSE::avancerX(double avanceX)
 {
     posX_ += avanceX;

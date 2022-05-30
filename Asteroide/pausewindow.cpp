@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QDebug>
 
+// constructeur de PauseWindow
 PauseWindow::PauseWindow(QWidget *parent) :
     QDialog(parent, Qt::FramelessWindowHint),
     ui(new Ui::PauseWindow)
@@ -44,6 +45,7 @@ PauseWindow::~PauseWindow()
     delete ui;
 }
 
+// fonction permet de quitter le jeu
 void PauseWindow::exit()
 {
     QMessageBox::StandardButton reply;

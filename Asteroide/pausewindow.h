@@ -19,7 +19,6 @@ public:
     bool quitter_  = false;
 
 public slots:
-    // void returnToGame();
     void exit();
 
 

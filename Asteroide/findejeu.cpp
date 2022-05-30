@@ -1,8 +1,9 @@
 #include "findejeu.h"
 #include "ui_findejeu.h"
 
+// constructeur de fin de jeu
 FinDeJeu::FinDeJeu(QWidget *parent) :
-    QDialog(parent),
+    QDialog(parent, Qt::FramelessWindowHint),
     ui(new Ui::FinDeJeu)
 {
     ui->setupUi(this);
@@ -20,8 +21,12 @@ FinDeJeu::FinDeJeu(QWidget *parent) :
 
     // add buttons and Labels
 
-    titleGame_ = new QLabel("<h1>Fin de jeu</h1>", this);
+    titleGame_ = new QLabel("<h1>Fin du jeu</h1>", this);
+    titleGame_->setAlignment(Qt::AlignCenter);
+
     gagner_ = new QLabel(isWin, this);
+    gagner_->setAlignment(Qt::AlignCenter);
+
     score_ = new QLabel(QString::number(nbrScore_), this); // entre 1 et 40 asteroide
     time_ = new QLabel(strTime_, this);
 
@@ -29,16 +34,16 @@ FinDeJeu::FinDeJeu(QWidget *parent) :
     quitter_ = new QPushButton("Quitter", this);
 
 
-    QString styleSheetnbrAst = "color: #FFFFFF;"
+    QString styleSheetnbrAst = "color: black;"
                                "font-size: 35px";
 
-    QString styleSheettitleGame = "color: white;"
+    QString styleSheettitleGame = "color: black;"
                                   "font-size: 22px";
 
-    QString styleSheetTextNbrAst = "color: white;"
+    QString styleSheetTextNbrAst = "color: black;"
                                    "font-size: 20px";
 
-    QString styleSheetPlay = "color: white;"
+    QString styleSheetPlay = "color: black;"
                              "font-size: 20px";
 
     titleGame_->setGeometry(20, 30, 280, 60);
@@ -68,14 +73,15 @@ FinDeJeu::~FinDeJeu()
     delete ui;
 }
 
+// reprendre le jeu
 void FinDeJeu::play()
 {
-
+    reprendeJeu_ = true;
 }
 
+// quitter le jeu
 void FinDeJeu::quitter()
 {
     close();
     quitteer_ = true;
-
 }

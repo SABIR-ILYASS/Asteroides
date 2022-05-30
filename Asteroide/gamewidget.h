@@ -2,7 +2,6 @@
 #define GAMEWIDGET_H
 
 #include "vaisseau.h"
-#include "ground.h"
 #include "listasteroide.h"
 #include "stationorbitalelogotse.h"
 #include "keyboarddata.h"
@@ -19,6 +18,7 @@ using namespace std;
 class GameWidget : public QOpenGLWidget
 {
 public:
+
     GameWidget(QWidget * parent = nullptr);
     int nombreOfAst_;
     int getIdPressButton() {return idPressButton_;};
@@ -32,6 +32,10 @@ public:
     int getPositionOfStationY();
     int getPositionOfStationZ();
 
+    QString getDetectionAction(){return detectionAction_;};
+    void setDetectionAction(QString str){detectionAction_ = str;};
+
+
     int getScore(){return score_;};
     int getNombreOfCollision(){return nombreOfCollision_;};
 
@@ -40,16 +44,12 @@ public:
 protected:
     void initializeGL();
     void paintGL();
-    // void keyPressEvent(QKeyEvent * event) override;
 
 private:
 
     Vaisseau * vaisseau_ = nullptr;
-    Ground * ground_ = nullptr;
     ListAsteroide * listAsteroide_ = nullptr;
     StationorbitaleLogoTSE * stationOrbitale_ = nullptr;
-
-    // int e
 
     int positionListAsteroide_;
     int positionStationOrbitale_;

@@ -18,6 +18,11 @@ public:
     ~FinDeJeu();
 
     bool getQuitteer(){return quitteer_;};
+    void setNbrScore(int n){nbrScore_ = n;};
+    void setNbrstrTime(QString strTime){strTime_ = strTime;};
+    void setNbrIsGagne(bool isGagne){isGagne_ = isGagne;};
+
+
 
 public slots:
     void play();
@@ -40,6 +45,7 @@ private:
     bool isGagne_ = false;
 
     bool quitteer_ = false;
+    bool reprendeJeu_ = false;
 };
 
 #endif // FINDEJEU_H

@@ -34,7 +34,11 @@ public:
 
     void detecteFinPartie();
 
+    void detectionOfHand();
+
     void keyPressEvent(QKeyEvent * event);
+
+    void fin();
 
 
 
@@ -81,7 +85,9 @@ private:
     int nombreScore_;
     int nombreOfNegatifCollision_;
 
-    // KeyboardData * keyboardData_;
+    int seconds1_;
+
+    QString detectionAction_;
 
 };
 #endif // MAINWINDOW_H

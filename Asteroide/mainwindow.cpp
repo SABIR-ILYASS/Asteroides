@@ -14,12 +14,15 @@
 #include <QElapsedTimer>
 #include <QVector>
 
+// constructeur de MainWindow
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     nombreScore_ = 0;
     nombreOfNegatifCollision_ = 0;
+
+    detectionAction_ = "";
 
     ui->setupUi(this);
     setFixedSize(1200, 600);
@@ -61,13 +64,6 @@ MainWindow::MainWindow(QWidget *parent)
     pause_->setGeometry(w * 0.21, h * 0.855, w * 0.18, h * 0.1);
     pause_->setStyleSheet(styleSheetButton);
 
-    /*
-    timer_->setGeometry(w * 0.41, h * 0.855, w * 0.18, h * 0.1);
-    timer_->setStyleSheet(styleSheetLabel);
-    timer_->setText(QTime(0, 0).toString());
-    c_.restart();
-    time_.start(1000);
-    */
 
     score_->setGeometry(w * 0.61, h * 0.855, w * 0.18, h * 0.1);
     score_->setAlignment(Qt::AlignCenter);
@@ -102,12 +98,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_AnimationTimer_ = new QTimer(this);
     //Create and set timer
-    m_AnimationTimer_->setInterval(5);
+    m_AnimationTimer_->setInterval(3);
+
     connect(m_AnimationTimer_, SIGNAL(timeout()),this, SLOT(updateAllWidget()));
+
     // connect(m_AnimationTimer_, SIGNAL(timeout()),this, SLOT(finDejeu()));
     m_AnimationTimer_->start();
 
     inPause_ = false;
+    seconds1_ = 0;
 
 }
 
@@ -116,6 +115,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+// fonction permet d'ajouter un label de scene de jeu
 void MainWindow::gameWindow()
 {
 
@@ -133,6 +133,7 @@ void MainWindow::gameWindow()
 
 }
 
+// fonction permet d'ajouter un label de camera
 void MainWindow::cameraWindow()
 {
     cameraWidget_ = new CameraWidget(this);
@@ -145,6 +146,7 @@ void MainWindow::cameraWindow()
     this->gestionAffichageVie();
 }
 
+// fonction permet de faire les pause
 void MainWindow::pause()
 {
     inPause_ = true;
@@ -154,10 +156,10 @@ void MainWindow::pause()
     if (b){
         close();
     }
-    qDebug()<<33333333333;
 
 }
 
+// fonction permet de quitter
 void MainWindow::exit()
 {
     QMessageBox::StandardButton reply;
@@ -171,6 +173,7 @@ void MainWindow::exit()
     }
 }
 
+// fonction permet de voir nombre de vie restée pour le vaisseau
 void MainWindow::gestionAffichageVie(){
     if (nombreOfNegatifCollision_ >= 3){
         vieRestant1_->hide();
@@ -184,21 +187,14 @@ void MainWindow::gestionAffichageVie(){
     }
 }
 
+// fonction permet de faire mise à jour du temps
 void MainWindow::UpdateTime()
 {
-    /*
-    int seconds1 = 0;
     int seconds2 = QTime(0, 0, 0).secsTo(c_.getTime());
-    if (seconds2 > seconds1){
+    if (seconds2 > seconds1_){
         qDebug()<<seconds2;
-        seconds1 = seconds2;
-
+        seconds1_ = seconds2;
     }
-    while(seconds1 < 3600){
-        timer_->setText(this->c_.getTime().toString());
-    }
-    */
-
 }
 
 void MainWindow::stopTime()
@@ -206,9 +202,10 @@ void MainWindow::stopTime()
 
 }
 
+// fonction permet de faire mise à jour et synchroniser les éléments du fenetre principale
 void MainWindow::updateAllWidget()
 {
-    if(! inPause_)
+    if(! inPause_ && !finDeJeu_)
     {
         cameraWidget_->detectionOfHand();
         cameraWidget_->getAction();
@@ -217,18 +214,19 @@ void MainWindow::updateAllWidget()
 
         gameWidget_->setIdPressButton(this->idPressButton_);
         gameWidget_->detecteCollision();
+        this->detectionOfHand();
         this->detecteFinPartie();
         this->detecteCollision();
         this->updateStringScore();
         this->gestionAffichageVie();
+        this->fin();
         gameWidget_->update();
         m_TimeElapsed_ += 0.75f;
-
-        finDeJeu();
 
     }
 }
 
+// fonction pour récuperer les événements du clavier
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_A)
@@ -251,43 +249,48 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         idPressButton_ = 4;
         qDebug()<<"S";
     }
-    else if (event->key() == Qt::Key_X)
+    else if (event->key() == Qt::Key_W)
     {
         idPressButton_ = 0;
-        qDebug()<<"X";
+        qDebug()<<"w";
     }
+
     else
     {
         idPressButton_ = -1;
         qDebug()<<"clavier";
     }
-    qDebug()<<idPressButton_;
-    qDebug()<<finDeJeu_;
+
 }
 
+// fonction pour detecter les collisions
 void MainWindow::detecteCollision()
 {
     nombreScore_ = gameWidget_->getScore();
     nombreOfNegatifCollision_ = gameWidget_->getNombreOfCollision();
 }
 
+// fonction pour faire mise à jour du score
 void MainWindow::updateStringScore()
 {
     QString stringScore = QString::number(nombreScore_);
     score_->setText("<h1>Score: " + stringScore + "</h1>");
 }
 
+// fonction pour detecter la fin du jeu
 void MainWindow::detecteFinPartie()
 {
     int getPositionX = gameWidget_->getPositionOfStationX();
     int getPositionY = gameWidget_->getPositionOfStationY();
     int getPositionZ = gameWidget_->getPositionOfStationZ();
 
-    if (getPositionZ == 0)
+    if (nombreOfNegatifCollision_ >= 1){
+        finDeJeu_ = true;
+        isWin_ = false;
+    }
+    else if (getPositionZ > 3)
     {
-        qDebug()<<"distaaaaaaaaaaance";
-        qDebug()<<qSqrt(qPow(getPositionX,2) + qPow(getPositionY,2) + qPow(getPositionZ,2));
-        if(qSqrt(qPow(getPositionX,2) + qPow(getPositionY,2) + qPow(getPositionZ,2)) < 5 && nombreOfNegatifCollision_ <= 3)
+        if(qSqrt(qPow(getPositionX,2) + qPow(getPositionY,2) + qPow(getPositionZ,2)) < 7)
         {
             finDeJeu_ = true;
             isWin_ = true;
@@ -297,21 +300,39 @@ void MainWindow::detecteFinPartie()
             finDeJeu_ = true;
             isWin_ = false;
         }
-
-    } else if (nombreOfNegatifCollision_ >= 3)
-    {
-        finDeJeu_ = false;
-        isWin_ = false;
     }
+}
+
+// fonction pour afficher la fenetre du fin de jeu
+void MainWindow::finDeJeu()
+{
+
+    FinDeJeu finDeJeuWindow(this);
+
+    finDeJeuWindow.setNbrIsGagne(isWin_);
+
+    finDeJeuWindow.setNbrScore(nombreScore_);
+    finDeJeuWindow.setNbrstrTime(QString::number(seconds1_));
+
+
+
+    finDeJeuWindow.exec();
 
 }
 
-void MainWindow::finDeJeu()
+// fonction permet d'appeler la fonction finDejeu() si le jeu est terminer
+void MainWindow::fin()
 {
-    inPause_ = true;
+
     if (finDeJeu_)
     {
-        FinDeJeu finDeJeuWindow(this);
-        finDeJeuWindow.exec();
+        finDeJeu();
     }
+}
+
+// fonction permet de faire mise a jour des evenements de la main
+void MainWindow::detectionOfHand()
+{
+    detectionAction_ = cameraWidget_->getAction();
+    gameWidget_->setDetectionAction(detectionAction_);
 }

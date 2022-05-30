@@ -6,6 +6,7 @@
 
 using namespace std;
 
+// constructeur de CameraWidget
 CameraWidget::CameraWidget(QWidget *parent)
     : QWidget{parent}
 {
@@ -38,6 +39,7 @@ CameraWidget::CameraWidget(QWidget *parent)
 
 }
 
+// fonction pour detecter les evenements des mains
 void CameraWidget::detectionOfHand()
 {
     Mat frameGray;
@@ -86,6 +88,7 @@ void CameraWidget::detectionOfHand()
             {
                      //move up
                      detecteAction_ = "UP";
+
              }
             else if ((posR[0][1] > frame_.rows / 3) && (posR[1][1] > frame_.rows / 3))
             {
@@ -121,6 +124,7 @@ void CameraWidget::detectionOfHand()
     {
         detecteAction_ = "STOP";
     }
+    qDebug()<<detecteAction_;
 
     image_ = QImage(frame_.data, cadreAffichage_->width(), cadreAffichage_->height(), frame_.step, QImage::Format_BGR888);
 

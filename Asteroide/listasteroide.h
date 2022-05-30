@@ -5,8 +5,6 @@
 #include  <QVector>
 #include <QKeyEvent>
 
-// using namespace std;
-
 class ListAsteroide : public Asteroide
 {
 public:
@@ -20,7 +18,6 @@ public:
     int static const MIN_RAYON = 1;
 
     ListAsteroide(int n);
-    // ~ListAsteroide();
     void ajouterAsteroide(Asteroide a);
     void supprimerAsteroide(int idOfAsteroide);
     void Display() const;

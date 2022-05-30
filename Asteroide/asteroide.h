@@ -6,7 +6,6 @@ class Asteroide
 public:
     Asteroide();
     Asteroide(double posX,double posY,double posZ,double rayon, bool b);
-    // ~Asteroide();
 
     void Display() const;
 

@@ -4,6 +4,7 @@ Vaisseau::Vaisseau()
 {
 }
 
+// fonction d'affichage du vaisseau
 void Vaisseau::Display() const
 {
     glEnable(GL_TEXTURE_2D);
@@ -109,6 +110,7 @@ void Vaisseau::Display() const
     delete[] textures;
 }
 
+// fonction permet d'ajouter un eclairage au vaisseau
 void Vaisseau::eclairageVaisseau() const
 {
     glEnable(GL_LIGHTING);

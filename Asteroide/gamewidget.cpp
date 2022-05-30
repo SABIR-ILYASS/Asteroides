@@ -6,6 +6,7 @@
 
 using namespace std;
 
+// constucteur de GameWidget
 GameWidget::GameWidget(QWidget * parent) : QOpenGLWidget(parent)
 {
     /*
@@ -34,6 +35,7 @@ GameWidget::GameWidget(QWidget * parent) : QOpenGLWidget(parent)
     nombreOfCollision_ =0;
 }
 
+// intialiser la scene
 void GameWidget::initializeGL()
 {
     // Activation du zbuffer
@@ -75,14 +77,14 @@ void GameWidget::paintGL()
         vaisseau_->Display();
 
         double avancementX = 0, avancementY = 0, avancementZ = 0;
-        if (detectionAction_ == "RIGHT" || idPressButton_ == 2)
+        if ( idPressButton_ == 2 || detectionAction_ == "RIGHT" )
         {
             avancementX = -1;
             avancementY = 0;
             avancementZ = 0;
             qDebug()<<"Right";
         }
-        else if (detectionAction_ == "LEFT" || idPressButton_ == 1)
+        else if (idPressButton_ == 1 || detectionAction_ == "LEFT")
         {
             avancementX = 1;
             avancementY = 0;
@@ -90,21 +92,21 @@ void GameWidget::paintGL()
             qDebug()<<"LEFT";
 
         }
-        else if (detectionAction_ == "UP" || idPressButton_ == 4)
+        else if (idPressButton_ == 4 || detectionAction_ == "UP"  )
         {
             avancementX = 0;
             avancementY = 1;
             avancementZ = 0;
             qDebug()<<"Up";
         }
-        else if (detectionAction_ == "DOWN" || idPressButton_ == 3)
+        else if (idPressButton_ == 3 ||  detectionAction_ == "DOWN")
         {
             avancementX = 0;
             avancementY = -1;
             avancementZ = 0;
             qDebug()<<"Down";
         }
-        else if (detectionAction_ == "STOP" || idPressButton_ == -1)
+        else if (idPressButton_ == -1 || detectionAction_ == "STOP"  )
         {
             avancementX = 0;
             avancementY = 0;
@@ -112,8 +114,14 @@ void GameWidget::paintGL()
             qDebug()<<"Stop";
         }
 
-        else if (detectionAction_ == "AVANCER" || idPressButton_ == 0)
-        {
+        else if (detectionAction_ == "AVANCER")        {
+            avancementX = 0;
+            avancementY = 0;
+            avancementZ = 1;
+            qDebug()<<"Avancer";
+        }
+
+        else if (idPressButton_ == 0)        {
             avancementX = 0;
             avancementY = 0;
             avancementZ = 1;
@@ -143,6 +151,7 @@ void GameWidget::paintGL()
         glPopMatrix();
 }
 
+// fonction d'intialisation de la scene
 void GameWidget::detecteCollision()
 {
     listAsteroide_->detecteCollision();
@@ -150,16 +159,19 @@ void GameWidget::detecteCollision()
     nombreOfCollision_ = listAsteroide_->getNombreOfCollision();
 }
 
+// getter de positionnement de X
 int GameWidget::getPositionOfStationX()
 {
     return stationOrbitale_->getPositionX();
 }
 
+// getter de positionnement de Y
 int GameWidget::getPositionOfStationY()
 {
     return stationOrbitale_->getPositionY();
 }
 
+// getter de positionnement de Z
 int GameWidget::getPositionOfStationZ()
 {
     return stationOrbitale_->getPositionZ();

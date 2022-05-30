@@ -1,4 +1,4 @@
-<?xml version='1.0'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>FinDeJeu</class>
  <widget class="QDialog" name="FinDeJeu">
@@ -9,6 +9,18 @@
     <width>240</width>
     <height>320</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>240</width>
+    <height>320</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>240</width>
+    <height>320</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>

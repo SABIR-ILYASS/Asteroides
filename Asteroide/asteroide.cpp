@@ -3,8 +3,8 @@
 #include <GL/glu.h>
 #include <QImage>
 #include <QDebug>
-// #include <QGLWidget>
 
+// constructeur de Asteroide
 Asteroide::Asteroide()
 {
     posX_ = 0;
@@ -15,7 +15,7 @@ Asteroide::Asteroide()
 
 }
 
-
+// un deuxieme constructeur avec parametres
 Asteroide::Asteroide(double posX,double posY,double posZ,double rayon, bool b)
 {
     posX_ = posX;
@@ -25,6 +25,7 @@ Asteroide::Asteroide(double posX,double posY,double posZ,double rayon, bool b)
     idOfAsteroide_ = b;
 }
 
+// l'affichage de l'asteroide
 void Asteroide::Display() const
 {
     QString pathImage;
@@ -56,6 +57,7 @@ void Asteroide::Display() const
     glPopMatrix();
 }
 
+// setter de l'Asteroide
 void Asteroide::setPosition(double x,double y,double z)
 {
     posX_ = x;
@@ -63,16 +65,19 @@ void Asteroide::setPosition(double x,double y,double z)
     posZ_ = z;
 }
 
+// pour avancer suivant laxe des X
 void Asteroide::avancerX(double avanceX)
 {
     posX_ += avanceX;
 }
 
+// pour avancer suivant laxe des Y
 void Asteroide::avancerY(double avanceY)
 {
     posY_ += avanceY;
 }
 
+// pour avancer suivant laxe des Z
 void Asteroide::avancerZ(double avanceZ)
 {
     posZ_ += avanceZ;

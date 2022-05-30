@@ -41,7 +41,6 @@ SOURCES += \
     chronometer.cpp \
     findejeu.cpp \
     gamewidget.cpp \
-    ground.cpp \
     listasteroide.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -56,7 +55,6 @@ HEADERS += \
     chronometer.h \
     findejeu.h \
     gamewidget.h \
-    ground.h \
     listasteroide.h \
     mainwindow.h \
     pausewindow.h \
