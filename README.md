@@ -12,5 +12,5 @@
 ![Alt text](https://github.com/SABIR-ILYASS/Asteroides/blob/main/screen/quitter.jpg)
 <img scr="https://github.com/SABIR-ILYASS/Asteroides/blob/main/screen/quitter.jpg">
 
-![Alt text](https://github.com/SABIR-ILYASS/Asteroides/blob/main/screen/fin%20du%20jeu.jpg)
-<img scr="https://github.com/SABIR-ILYASS/Asteroides/blob/main/screen/fin%20du%20jeu.jpg">
+![Alt text](https://github.com/SABIR-ILYASS/Asteroides/blob/main/screen/findujeu.jpg)
+<img scr="https://github.com/SABIR-ILYASS/Asteroides/blob/main/screen/findujeu.jpg">
