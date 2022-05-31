@@ -1,6 +1,8 @@
 #include "findejeu.h"
 #include "ui_findejeu.h"
 
+#include <QMessageBox>
+
 // constructeur de fin de jeu
 FinDeJeu::FinDeJeu(QWidget *parent) :
     QDialog(parent, Qt::FramelessWindowHint),
@@ -9,63 +11,65 @@ FinDeJeu::FinDeJeu(QWidget *parent) :
     ui->setupUi(this);
     setFixedSize(320, 480);
 
-    QString isWin;
-
-    if (isGagne_){
-        isWin = "Bravo, vous avez gagné le jeu";
-    }
-    else
-    {
-        isWin = "Partie perdue!";
-    }
-
+    QString styleSheettitleGame = "color: black;"
+                                  "font-size: 15px;";
     // add buttons and Labels
-
     titleGame_ = new QLabel("<h1>Fin du jeu</h1>", this);
+    titleGame_->setGeometry(20, 20, 280, 40);
+    titleGame_->setStyleSheet(styleSheettitleGame);
+
     titleGame_->setAlignment(Qt::AlignCenter);
 
-    gagner_ = new QLabel(isWin, this);
-    gagner_->setAlignment(Qt::AlignCenter);
 
-    score_ = new QLabel(QString::number(nbrScore_), this); // entre 1 et 40 asteroide
-    time_ = new QLabel(strTime_, this);
+    /*
+    time_ = new QLabel("<h1>Temps du jeu: " + strTime_ + "</h1>", this);
+    time_ ->setAlignment(Qt::AlignCenter);
+
+    */
 
     rejouer_ = new QPushButton("Rejouer", this);
     quitter_ = new QPushButton("Quitter", this);
 
 
-    QString styleSheetnbrAst = "color: black;"
-                               "font-size: 35px";
-
-    QString styleSheettitleGame = "color: black;"
-                                  "font-size: 22px";
-
-    QString styleSheetTextNbrAst = "color: black;"
-                                   "font-size: 20px";
-
     QString styleSheetPlay = "color: black;"
-                             "font-size: 20px";
+                             "font-size: 10px";
 
-    titleGame_->setGeometry(20, 30, 280, 60);
-    titleGame_->setStyleSheet(styleSheettitleGame);
 
-    gagner_->setGeometry(15, 150, 290, 40);
-    gagner_->setStyleSheet(styleSheetTextNbrAst);
+    /*
+    QString styleSheetnbrAst = "color: black;"
+                               "font-size: 15px;";
 
-    score_->setGeometry(140, 270, 40, 40);
+    QString styleSheetText = "color: black;"
+                                   "font-size: 10px";
+
+
+
+    gagner_->setGeometry(20, 100, 280, 40);
+    gagner_->setStyleSheet(styleSheetText);
+
+    score_->setGeometry(20, 180, 280, 40);
     score_->setStyleSheet(styleSheetnbrAst);
 
-    time_->setGeometry(110, 390, 100, 40);
-    time_->setStyleSheet(styleSheetPlay);
+    */
 
-    rejouer_->setGeometry(110, 390, 100, 40);
+    /*
+    time_->setGeometry(20, 260, 280, 40);
+    time_->setStyleSheet(styleSheetPlay);
+    */
+
+    rejouer_->setGeometry(120, 340, 80, 40);
     rejouer_->setStyleSheet(styleSheetPlay);
 
-    quitter_->setGeometry(110, 390, 100, 40);
+    quitter_->setGeometry(120, 420, 80, 40);
     quitter_->setStyleSheet(styleSheetPlay);
 
     // connect slot play:
     connect(rejouer_, SIGNAL(clicked()), this, SLOT(play()));
+    connect(quitter_, SIGNAL(clicked()), this, SLOT(quitter()));
+
+    // isGagne_ = false;
+    // reprendeJeu_ = false;
+    // quitteer_ = false;
 }
 
 FinDeJeu::~FinDeJeu()
@@ -77,11 +81,57 @@ FinDeJeu::~FinDeJeu()
 void FinDeJeu::play()
 {
     reprendeJeu_ = true;
+    close();
 }
 
 // quitter le jeu
 void FinDeJeu::quitter()
 {
-    close();
     quitteer_ = true;
+    close();
+
+}
+
+void FinDeJeu::paint()
+{
+    QString isWin;
+
+    if (isGagne_){
+        isWin = "Bravo, vous avez gagné le jeu";
+    }
+    else
+    {
+        isWin = "Partie perdue!";
+    }
+
+    gagner_ = new QLabel(isWin, this);
+    gagner_->setAlignment(Qt::AlignCenter);
+
+    score_ = new QLabel("<h1> Score: " + QString::number(nbrScore_) + "</h1>", this); // entre 1 et 40 asteroide
+    score_ ->setAlignment(Qt::AlignCenter);
+
+    QString styleSheettitleGame = "color: black;"
+                                  "font-size: 15px;";
+
+    QString styleSheetnbrAst = "color: black;"
+                               "font-size: 15px;";
+
+    QString styleSheetText = "color: black;"
+                                   "font-size: 10px";
+
+    QString styleSheetPlay = "color: black;"
+                             "font-size: 10px";
+
+
+    gagner_->setGeometry(20, 100, 280, 40);
+    gagner_->setStyleSheet(styleSheetText);
+
+    score_->setGeometry(20, 180, 280, 40);
+    score_->setStyleSheet(styleSheetnbrAst);
+
+    /*
+    time_->setGeometry(20, 260, 280, 40);
+    time_->setStyleSheet(styleSheetPlay);
+    */
+
 }

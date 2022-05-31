@@ -8,7 +8,7 @@ StationorbitaleLogoTSE::StationorbitaleLogoTSE()
 {
     posX_ = rand() % (this->MAX_POSITION_X - this->MIN_POSITION_X) + this->MIN_POSITION_X;
     posY_ = rand() % (this->MAX_POSITION_Y - this->MIN_POSITION_Y) + this->MIN_POSITION_Y;
-    posZ_ = -200;
+    posZ_ = -100;
     angleRotation_ = 0;
 }
 
@@ -371,6 +371,21 @@ void StationorbitaleLogoTSE::Display() const
     glVertex3f(1.f, 0.5f, 4.25f);
     glEnd();
 
+    glPopMatrix();
+    glPushMatrix();
+    glTranslated(posX_ ,posY_ ,posZ_);
+    glTranslated(0 ,0.5 ,0);
+    GLUquadric* quadriqueCli = gluNewQuadric();
+    gluQuadricDrawStyle(quadriqueCli,GLU_FILL);
+    glNormal3f(0.0,0.0,1.0);
+    if (clign_ == true){
+        glColor3f(1.0f,0.0f,0.0f),gluDisk(quadriqueCli,0,0.5,20,1);
+    }
+    else {
+        glColor3f(0.0f,0.0f,0.0f),gluDisk(quadriqueCli,0,0.5,20,1);
+    }
+
+    glDisable(GL_COLOR);
     glPopMatrix();
 
     delete[] textures;

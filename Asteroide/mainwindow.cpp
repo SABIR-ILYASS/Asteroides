@@ -38,12 +38,6 @@ MainWindow::MainWindow(QWidget *parent)
     vieRestant2_ = new QLabel(this);
     vieRestant3_ = new QLabel(this);
 
-    /*
-    timer_->setText(QTime(0, 0).toString());
-    QElapsedTimer t;
-    t.restart();
-    QTime time = QTime(0,0).addMSecs(t.elapsed());
-*/
 
     QString styleSheetButton = "color: rgb(0, 0, 120);"
                                "background-color: white;"
@@ -107,7 +101,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     inPause_ = false;
     seconds1_ = 0;
-
 }
 
 MainWindow::~MainWindow()
@@ -140,9 +133,6 @@ void MainWindow::cameraWindow()
     cameraWidget_->detectionOfHand();
     cameraWidget_->getAction();
 
-    // cameraWidget_->setGeometry(w * 0.505 , h * 0.01, w * 0.49, h * 0.8);
-    // cameraWindow_->setStyleSheet("background-color:yellow;border-radius:25%");
-
     this->gestionAffichageVie();
 }
 
@@ -156,6 +146,9 @@ void MainWindow::pause()
     if (b){
         close();
     }
+    bool bo = pauseWindow.continuee_;
+    if(bo)
+        inPause_ = false;
 
 }
 
@@ -192,7 +185,6 @@ void MainWindow::UpdateTime()
 {
     int seconds2 = QTime(0, 0, 0).secsTo(c_.getTime());
     if (seconds2 > seconds1_){
-        qDebug()<<seconds2;
         seconds1_ = seconds2;
     }
 }
@@ -209,19 +201,24 @@ void MainWindow::updateAllWidget()
     {
         cameraWidget_->detectionOfHand();
         cameraWidget_->getAction();
-        // QString str = cameraWidget_->getAction();
-        // gameWidget_->setAction(str);
+
+        // pour la classe cameraWidget
+        QString str = cameraWidget_->getAction();
+        gameWidget_->setDetectionAction(str);
 
         gameWidget_->setIdPressButton(this->idPressButton_);
         gameWidget_->detecteCollision();
+
         this->detectionOfHand();
         this->detecteFinPartie();
         this->detecteCollision();
         this->updateStringScore();
         this->gestionAffichageVie();
         this->fin();
+
         gameWidget_->update();
-        m_TimeElapsed_ += 0.75f;
+        m_TimeElapsed_ += 0.5f;
+        seconds1_ += 0.003;
 
     }
 }
@@ -249,10 +246,10 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         idPressButton_ = 4;
         qDebug()<<"S";
     }
-    else if (event->key() == Qt::Key_W)
+    else if (event->key() == Qt::Key_X)
     {
         idPressButton_ = 0;
-        qDebug()<<"w";
+        qDebug()<<"X";
     }
 
     else
@@ -284,7 +281,7 @@ void MainWindow::detecteFinPartie()
     int getPositionY = gameWidget_->getPositionOfStationY();
     int getPositionZ = gameWidget_->getPositionOfStationZ();
 
-    if (nombreOfNegatifCollision_ >= 1){
+    if (nombreOfNegatifCollision_ >= 3){
         finDeJeu_ = true;
         isWin_ = false;
     }
@@ -308,16 +305,30 @@ void MainWindow::finDeJeu()
 {
 
     FinDeJeu finDeJeuWindow(this);
-
     finDeJeuWindow.setNbrIsGagne(isWin_);
 
     finDeJeuWindow.setNbrScore(nombreScore_);
-    finDeJeuWindow.setNbrstrTime(QString::number(seconds1_));
 
+    int seconds = (int) seconds1_;
+    int sec = seconds % 60;
+    int hour = (int) seconds / 3600;
+    int min = (int) (seconds % 3600) / 60;
 
+    QString time = QString::number(hour) + "h, " + QString::number(min) + "min, " + QString::number(sec) + "s.";
+
+    qDebug()<<time;
+    finDeJeuWindow.setNbrstrTime(time);
+    finDeJeuWindow.paint();
 
     finDeJeuWindow.exec();
+    bool b = finDeJeuWindow.getQuitteer();
+    if (b){
+        close();
+    }
 
+    bool bo = finDeJeuWindow.getRejouer();
+    if (bo)
+        this->rejouer();
 }
 
 // fonction permet d'appeler la fonction finDejeu() si le jeu est terminer
@@ -334,5 +345,24 @@ void MainWindow::fin()
 void MainWindow::detectionOfHand()
 {
     detectionAction_ = cameraWidget_->getAction();
-    gameWidget_->setDetectionAction(detectionAction_);
+    // gameWidget_->setDetectionAction(detectionAction_);
+}
+
+void MainWindow::rejouer()
+{
+    nombreScore_ = 0;
+    nombreOfNegatifCollision_ = 0;
+
+    detectionAction_ = "";
+
+    QString stringScore = QString::number(nombreScore_);
+
+    gameWidget_ = new GameWidget(this);
+    gameWidget_->setIdPressButton(this->idPressButton_);
+
+    m_AnimationTimer_ = new QTimer(this);
+
+    //Create and set timer
+
+    inPause_ = false;
 }

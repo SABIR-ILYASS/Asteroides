@@ -34,9 +34,10 @@ PauseWindow::PauseWindow(QWidget *parent) :
 
     exit_->setGeometry(100, 225, 100, 50);
     exit_->setStyleSheet(styleSheetButton);
+    continuee_ = false;
 
     // connect slots:
-    connect(continue_, SIGNAL(clicked()), this, SLOT(close()));
+    connect(continue_, SIGNAL(clicked()), this, SLOT(continu()));
     connect(exit_, SIGNAL(clicked()), this, SLOT(exit()));
 }
 
@@ -58,4 +59,10 @@ void PauseWindow::exit()
     else{
         // pause
     }
+}
+
+void PauseWindow::continu()
+{
+    continuee_ = true;
+    close();
 }

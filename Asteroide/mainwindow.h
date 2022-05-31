@@ -39,8 +39,7 @@ public:
     void keyPressEvent(QKeyEvent * event);
 
     void fin();
-
-
+    void rejouer();
 
 public slots:
     void pause();

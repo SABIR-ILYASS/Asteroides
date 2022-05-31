@@ -17,9 +17,11 @@ public:
     explicit PauseWindow(QWidget *parent = nullptr);
     ~PauseWindow();
     bool quitter_  = false;
+    bool continuee_;
 
 public slots:
     void exit();
+    void continu();
 
 
 private:

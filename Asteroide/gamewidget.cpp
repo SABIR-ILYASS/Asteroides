@@ -131,6 +131,53 @@ void GameWidget::paintGL()
         {
         }
 
+        if (detectionAction_ == "RIGHT")
+        {
+            avancementX = -1;
+            avancementY = 0;
+            avancementZ = 0;
+            qDebug()<<"Right";
+        }
+        else if (detectionAction_ == "LEFT")
+        {
+            avancementX = 1;
+            avancementY = 0;
+            avancementZ = 0;
+            qDebug()<<"LEFT";
+
+        }
+        else if (detectionAction_ == "UP"  )
+        {
+            avancementX = 0;
+            avancementY = 1;
+            avancementZ = 0;
+            qDebug()<<"Up";
+        }
+        else if (detectionAction_ == "DOWN")
+        {
+            avancementX = 0;
+            avancementY = -1;
+            avancementZ = 0;
+            qDebug()<<"Down";
+        }
+        else if (detectionAction_ == "STOP"  )
+        {
+            avancementX = 0;
+            avancementY = 0;
+            avancementZ = 0;
+            qDebug()<<"Stop";
+        }
+
+        else if (detectionAction_ == "AVANCER")        {
+            avancementX = 0;
+            avancementY = 0;
+            avancementZ = 1;
+            qDebug()<<"Avancer";
+        }
+        else
+        {
+        }
+
         int angle = stationOrbitale_->getAngleRoration();
         stationOrbitale_->setRotation(angle + 9);
 

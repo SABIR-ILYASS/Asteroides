@@ -67,6 +67,7 @@ private:
     int score_;
     int nombreOfCollision_;
 
+
 };
 
 #endif // GAMEWIDGET_H

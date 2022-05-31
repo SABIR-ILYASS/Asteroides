@@ -37,6 +37,8 @@ private:
     double posY_;
     double posZ_;
     int angleRotation_;
+    bool clign_ = false;
+
 };
 
 #endif // STATIONORBITALELOGOTSE_H
