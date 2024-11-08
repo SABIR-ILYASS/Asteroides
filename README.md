@@ -1,4 +1,4 @@
-<img style="float: left" width="100%" height="100" alt="TSE"  src="https://www.telecom-st-etienne.fr/wp-content/themes/telecom/asset/images/logo.svg">
+<img style="float: left" width="100%" height="100" alt="TSE"  src="https://cdn.prod.website-files.com/6696a3d71007097b74ba1497/6696b86e01ba5c526e809913_steer_logo.svg">
 
 # Jeu d'asteroides
 
